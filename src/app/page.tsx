@@ -11,6 +11,7 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ResumeModal from "@/components/ResumeModal";
 import AtsModal from "@/components/AtsModal";
+import CrystalCursorAura from "@/components/CrystalCursorAura";
 
 export default function Home() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -18,8 +19,11 @@ export default function Home() {
   const [activeTechFilter, setActiveTechFilter] = useState<string | null>(null);
 
   return (
-    <div className="ambient-canvas min-h-screen text-slate-900 relative">
-      {/* Dynamic Navigation */}
+    <div className="crystal-canvas min-h-screen text-slate-900 relative selection:bg-purple-300 selection:text-purple-950">
+      {/* Interactive Crystal Cursor Aura & Ambient Refractions */}
+      <CrystalCursorAura />
+
+      {/* Dynamic Floating Crystal Navigation */}
       <Navbar
         onOpenResume={() => setIsResumeOpen(true)}
         onOpenAts={() => setIsAtsOpen(true)}

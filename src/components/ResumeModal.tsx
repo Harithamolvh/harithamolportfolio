@@ -43,10 +43,10 @@ export default function ResumeModal({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/70 backdrop-blur-md flex justify-end animate-in fade-in duration-300">
       <div className="w-full max-w-4xl bg-white min-h-screen shadow-2xl flex flex-col justify-between border-l border-slate-200 animate-in slide-in-from-right duration-300">
         {/* Slide-over Control Bar (Hidden during print) */}
-        <div className="sticky top-0 z-20 bg-white/90 backdrop-blur-lg px-6 py-4 border-b border-slate-200 flex items-center justify-between print:hidden">
+        <div className="sticky top-0 z-20 crystal-card bg-white/90 backdrop-blur-2xl px-6 py-4 border-b border-white/95 flex items-center justify-between print:hidden shadow-sm">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-            <span className="font-bold text-slate-900 text-sm">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-extrabold text-slate-900 text-sm">
               Resume Reader — Harithamol V H
             </span>
           </div>
@@ -54,14 +54,14 @@ export default function ResumeModal({
           <div className="flex items-center gap-2">
             <button
               onClick={onOpenAts}
-              className="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors"
+              className="text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs"
             >
               ATS Plain Text
             </button>
 
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition-all"
+              className="crystal-sheen inline-flex items-center gap-1.5 text-xs font-black px-4 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:opacity-95 shadow-md shadow-purple-500/20 transition-all border border-white/40"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print / Save as PDF</span>

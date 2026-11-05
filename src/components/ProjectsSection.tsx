@@ -38,13 +38,12 @@ export default function ProjectsSection({
     "Enterprise & Booking",
   ];
 
-  // Filter projects by category and tech filter
+  // Filter projects by category
   const filteredProjects = PORTFOLIO_DATA.projects.filter((project) => {
-    const matchesCategory =
+    return (
       selectedCategory === "All" ||
-      project.categories.includes(selectedCategory);
-
-    return matchesCategory;
+      project.categories.includes(selectedCategory)
+    );
   });
 
   const flagshipProjects = filteredProjects.filter((p) => p.isFlagship);
@@ -61,17 +60,17 @@ export default function ProjectsSection({
     <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass-pill mb-3">
-          <Layers className="w-3.5 h-3.5 text-indigo-500" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full crystal-pill mb-3">
+          <Layers className="w-3.5 h-3.5 text-purple-600" />
           <span className="text-xs font-bold uppercase tracking-wider text-indigo-900">
             Commercial Portfolio &amp; Interactive Engines
           </span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-crystal-title">
           Interactive Project Explorer
         </h2>
-        <p className="mt-3 text-slate-600 text-sm sm:text-base">
-          Proven commercial systems architected with scalable multi-tenancy, transactional financial processing, and government enterprise workflows. Test the embedded live simulators below.
+        <p className="mt-3 text-slate-700 text-sm sm:text-base font-normal">
+          Proven commercial systems architected with scalable multi-tenancy, transactional financial processing, and government enterprise workflows. Test the embedded live crystal simulators below.
         </p>
 
         {/* Category Filter Pills */}
@@ -80,10 +79,10 @@ export default function ProjectsSection({
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`text-xs font-semibold px-4 py-2 rounded-full transition-all duration-200 ${
+              className={`text-xs font-bold px-4 py-2 rounded-full transition-all duration-200 ${
                 selectedCategory === cat
-                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25 scale-105"
-                  : "bg-white/70 text-slate-700 hover:bg-white hover:text-indigo-600 border border-white/80"
+                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-purple-500/25 scale-105 border border-white/50"
+                  : "crystal-pill text-slate-700 hover:text-indigo-600 hover:bg-white"
               }`}
             >
               {cat}
@@ -100,16 +99,16 @@ export default function ProjectsSection({
           return (
             <div
               key={project.id}
-              className={`glass-panel rounded-3xl p-6 sm:p-8 border transition-all duration-300 ${
+              className={`crystal-card rounded-3xl p-6 sm:p-8 border transition-all duration-300 ${
                 isTechHighlighted
-                  ? "ring-4 ring-indigo-400 border-indigo-300 shadow-2xl bg-indigo-50/30"
-                  : "border-white/80 hover:border-white shadow-xl"
+                  ? "ring-4 ring-purple-400 border-white shadow-2xl bg-white/70"
+                  : "border-white/90 hover:border-white shadow-xl"
               }`}
             >
               {/* Highlight Badge if active tech matches */}
               {isTechHighlighted && (
-                <div className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-600 text-white text-xs font-semibold animate-pulse">
-                  <Sparkles className="w-3.5 h-3.5" />
+                <div className="mb-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold animate-pulse shadow-md">
+                  <Sparkles className="w-3.5 h-3.5 text-pink-200" />
                   <span>Implements {activeTechFilter}</span>
                 </div>
               )}
@@ -118,20 +117,20 @@ export default function ProjectsSection({
               <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 pb-6 border-b border-slate-200/60">
                 <div>
                   <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                    <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">
+                    <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-white/80 text-purple-900 border border-purple-200 shadow-2xs">
                       {project.category}
                     </span>
-                    <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-                      <Building className="w-3.5 h-3.5" /> {project.client}
+                    <span className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                      <Building className="w-3.5 h-3.5 text-indigo-500" /> {project.client}
                     </span>
-                    <span className="text-xs font-medium text-slate-500 flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" /> {project.period}
+                    <span className="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-purple-500" /> {project.period}
                     </span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {project.title}
                   </h3>
-                  <p className="text-sm font-semibold text-indigo-600 mt-0.5">
+                  <p className="text-sm font-bold text-indigo-600 mt-0.5">
                     {project.subtitle}
                   </p>
                 </div>
@@ -141,12 +140,12 @@ export default function ProjectsSection({
                   {project.metrics.map((m) => (
                     <div
                       key={m.label}
-                      className="glass-subtle rounded-xl p-2.5 text-center min-w-[110px]"
+                      className="crystal-subtle rounded-2xl p-2.5 text-center min-w-[110px] border border-white/80"
                     >
-                      <div className="text-[10px] text-slate-500 uppercase font-semibold">
+                      <div className="text-[10px] text-slate-500 uppercase font-bold">
                         {m.label}
                       </div>
-                      <div className="text-xs font-bold text-slate-900 mt-0.5">
+                      <div className="text-xs font-black text-slate-900 mt-0.5">
                         {m.value}
                       </div>
                     </div>
@@ -162,14 +161,14 @@ export default function ProjectsSection({
                   </p>
 
                   <div className="mb-4">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 block mb-2">
                       Architectural Innovations
                     </span>
                     <ul className="space-y-2 text-xs text-slate-700">
                       {project.architecturalHighlights.map((hl, i) => (
                         <li key={i} className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                          <span>{hl}</span>
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span className="font-medium">{hl}</span>
                         </li>
                       ))}
                     </ul>
@@ -177,7 +176,7 @@ export default function ProjectsSection({
 
                   {/* Technology Tags */}
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-2">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 block mb-2">
                       Technology Stack
                     </span>
                     <div className="flex flex-wrap gap-1.5">
@@ -187,10 +186,10 @@ export default function ProjectsSection({
                           <button
                             key={t}
                             onClick={() => onSelectTechFilter(t)}
-                            className={`text-xs px-2.5 py-1 rounded-lg font-medium transition-all ${
+                            className={`text-xs px-2.5 py-1 rounded-xl font-semibold transition-all ${
                               isMatch
-                                ? "bg-indigo-600 text-white font-bold"
-                                : "bg-white/80 text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 border border-slate-200/60"
+                                ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold shadow-md"
+                                : "bg-white/80 text-slate-700 hover:bg-white hover:text-indigo-600 border border-white/90 shadow-2xs"
                             }`}
                           >
                             {t}
@@ -214,21 +213,21 @@ export default function ProjectsSection({
         })}
       </div>
 
-      {/* Secondary Projects Grid (Expandable) */}
+      {/* Secondary Projects Grid */}
       {secondaryProjects.length > 0 && (
         <div className="mt-16">
           <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-200/60">
             <div>
-              <h3 className="text-xl font-bold text-slate-900">
+              <h3 className="text-xl font-black text-slate-900 tracking-tight">
                 Additional Enterprise &amp; Client Projects
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-600 font-medium">
                 Production web applications delivered across logistics, hospitality, and media publishing
               </p>
             </div>
             <button
               onClick={() => setShowAllSecondary(!showAllSecondary)}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-800 bg-white/70 px-3 py-1.5 rounded-full border border-slate-200 transition-all"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-700 hover:text-indigo-900 crystal-pill px-3.5 py-1.5 rounded-full border border-white/90 transition-all hover:scale-105"
             >
               <span>{showAllSecondary ? "Show Top 3" : `View All (${secondaryProjects.length})`}</span>
               {showAllSecondary ? (
@@ -249,24 +248,24 @@ export default function ProjectsSection({
               return (
                 <div
                   key={project.id}
-                  className={`glass-panel holographic-sheen-container rounded-3xl p-6 border transition-all flex flex-col justify-between ${
+                  className={`crystal-card crystal-sheen rounded-3xl p-6 border transition-all flex flex-col justify-between ${
                     isTechHighlighted
-                      ? "ring-2 ring-indigo-400 border-indigo-300 bg-indigo-50/20"
-                      : "border-white/80 hover:border-white"
+                      ? "ring-2 ring-purple-400 border-white bg-white/70"
+                      : "border-white/90 hover:border-white"
                   }`}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/80 text-purple-900 border border-purple-200 shadow-2xs">
                         {project.category}
                       </span>
-                      <span className="text-[11px] text-slate-500 font-medium">
+                      <span className="text-[11px] text-slate-500 font-semibold">
                         {project.period}
                       </span>
                     </div>
 
-                    <h4 className="text-lg font-bold text-slate-900">{project.title}</h4>
-                    <p className="text-xs font-medium text-indigo-600 mb-3">
+                    <h4 className="text-lg font-black text-slate-900">{project.title}</h4>
+                    <p className="text-xs font-bold text-indigo-600 mb-3">
                       {project.subtitle}
                     </p>
 
@@ -277,11 +276,11 @@ export default function ProjectsSection({
                     {/* Metrics */}
                     <div className="grid grid-cols-2 gap-2 mb-4">
                       {project.metrics.map((m) => (
-                        <div key={m.label} className="glass-subtle p-2 rounded-xl text-center">
-                          <span className="text-[9px] uppercase text-slate-500 font-semibold block">
+                        <div key={m.label} className="crystal-subtle p-2 rounded-xl text-center border border-white/80">
+                          <span className="text-[9px] uppercase text-slate-500 font-bold block">
                             {m.label}
                           </span>
-                          <span className="text-xs font-bold text-slate-900 mt-0.5 block">
+                          <span className="text-xs font-black text-slate-900 mt-0.5 block">
                             {m.value}
                           </span>
                         </div>
@@ -294,7 +293,7 @@ export default function ProjectsSection({
                       {project.technologies.map((t) => (
                         <span
                           key={t}
-                          className="text-[10px] px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-medium"
+                          className="text-[10px] px-2 py-0.5 rounded-lg bg-white/80 text-slate-700 font-semibold border border-white/90 shadow-3xs"
                         >
                           {t}
                         </span>

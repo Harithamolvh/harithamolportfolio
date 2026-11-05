@@ -101,18 +101,18 @@ KEY PROJECTS
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="glass-panel bg-white/95 rounded-3xl p-6 sm:p-8 max-w-3xl w-full border border-white/90 shadow-2xl flex flex-col max-h-[85vh]">
+      <div className="crystal-card bg-white/95 rounded-3xl p-6 sm:p-8 max-w-3xl w-full border border-white/95 shadow-2xl flex flex-col max-h-[85vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-200">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+            <div className="w-10 h-10 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-700 border border-purple-200 shadow-xs">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-lg font-black text-slate-900 tracking-tight">
                 ATS-Optimized Plain Text Resume
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-600 font-medium">
                 Parsed and validated for Applicant Tracking Systems (Workday, Greenhouse, Lever)
               </p>
             </div>
@@ -120,7 +120,7 @@ KEY PROJECTS
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-600 transition-colors"
+            className="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -165,3 +165,4 @@ KEY PROJECTS
     </div>
   );
 }
+

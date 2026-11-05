@@ -30,7 +30,7 @@ export default function TechMatrixSection({
 }: TechMatrixSectionProps) {
   const [hoveredDay, setHoveredDay] = useState<string | null>(null);
 
-  // Generate simulated 52-week or 28-day commit heatmap strip
+  // Generate simulated 32-week commit heatmap strip
   const heatmapWeeks = Array.from({ length: 32 }, (_, weekIndex) => {
     return Array.from({ length: 7 }, (_, dayIndex) => {
       const commitCount = Math.floor(Math.sin(weekIndex * 0.4 + dayIndex) * 3 + 2.5);
@@ -39,12 +39,12 @@ export default function TechMatrixSection({
   });
 
   const getHeatmapColor = (count: number) => {
-    if (count === 0) return "bg-slate-200/50";
-    if (count === 1) return "bg-purple-200";
-    if (count === 2) return "bg-purple-300";
-    if (count === 3) return "bg-indigo-400";
-    if (count === 4) return "bg-indigo-500";
-    return "bg-indigo-600";
+    if (count === 0) return "bg-white/50 border border-white/60";
+    if (count === 1) return "bg-purple-200/90 border border-purple-300";
+    if (count === 2) return "bg-purple-300/90 border border-purple-400";
+    if (count === 3) return "bg-indigo-400/90 border border-indigo-500";
+    if (count === 4) return "bg-indigo-500/95 border border-indigo-600";
+    return "bg-indigo-600 border border-indigo-700";
   };
 
   const getCategoryIcon = (iconName: string) => {
@@ -70,36 +70,36 @@ export default function TechMatrixSection({
     <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-14">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full glass-pill mb-3">
-          <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full crystal-pill mb-3">
+          <Sparkles className="w-3.5 h-3.5 text-purple-600" />
           <span className="text-xs font-bold uppercase tracking-wider text-indigo-900">
             Engineered Capabilities
           </span>
         </div>
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-crystal-title">
           Real-Time GitHub &amp; Technical Matrix
         </h2>
-        <p className="mt-3 text-slate-600 text-sm sm:text-base">
+        <p className="mt-3 text-slate-700 text-sm sm:text-base font-normal">
           Production-tested stack across high-throughput Laravel micro-architectures, payment ecosystems, and containerized deployments. Click any skill badge to highlight its implementation across projects below.
         </p>
       </div>
 
-      {/* GitHub Live Telemetry Ribbon */}
-      <div className="glass-panel rounded-3xl p-6 sm:p-8 mb-12 border border-white/80 shadow-xl">
+      {/* GitHub Live Telemetry Ribbon in Crystal Card */}
+      <div className="crystal-card rounded-3xl p-6 sm:p-8 mb-12 border border-white/95 shadow-2xl">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-slate-200/60">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-900 to-indigo-900 flex items-center justify-center text-white shadow-md">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-slate-900 via-indigo-950 to-purple-900 flex items-center justify-center text-white shadow-lg ring-2 ring-white/80">
               <GithubIcon className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-900 text-lg">GitHub Production Telemetry</span>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold flex items-center gap-1">
+                <span className="font-extrabold text-slate-900 text-lg">GitHub Production Telemetry</span>
+                <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold flex items-center gap-1 border border-emerald-200">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Live Sync
                 </span>
               </div>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-xs text-slate-600 mt-0.5 font-medium">
                 Verified repository commit frequency &amp; automated CI/CD deployments
               </p>
             </div>
@@ -107,42 +107,42 @@ export default function TechMatrixSection({
 
           {/* Quick Metrics */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full lg:w-auto">
-            <div className="glass-subtle rounded-xl p-3 text-center">
-              <div className="flex items-center justify-center gap-1 text-slate-500 text-xs font-medium">
+            <div className="crystal-subtle rounded-2xl p-3 text-center border border-white/80">
+              <div className="flex items-center justify-center gap-1 text-slate-600 text-xs font-semibold">
                 <GitCommit className="w-3.5 h-3.5 text-indigo-500" />
                 <span>Commits/Yr</span>
               </div>
-              <div className="text-lg font-bold text-slate-900 mt-0.5">
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {PORTFOLIO_DATA.githubStats.totalCommitsPastYear}+
               </div>
             </div>
 
-            <div className="glass-subtle rounded-xl p-3 text-center">
-              <div className="flex items-center justify-center gap-1 text-slate-500 text-xs font-medium">
+            <div className="crystal-subtle rounded-2xl p-3 text-center border border-white/80">
+              <div className="flex items-center justify-center gap-1 text-slate-600 text-xs font-semibold">
                 <Flame className="w-3.5 h-3.5 text-amber-500" />
                 <span>Streak</span>
               </div>
-              <div className="text-lg font-bold text-slate-900 mt-0.5">
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {PORTFOLIO_DATA.githubStats.contributionStreak} Days
               </div>
             </div>
 
-            <div className="glass-subtle rounded-xl p-3 text-center">
-              <div className="flex items-center justify-center gap-1 text-slate-500 text-xs font-medium">
+            <div className="crystal-subtle rounded-2xl p-3 text-center border border-white/80">
+              <div className="flex items-center justify-center gap-1 text-slate-600 text-xs font-semibold">
                 <GitPullRequest className="w-3.5 h-3.5 text-purple-500" />
                 <span>PRs Merged</span>
               </div>
-              <div className="text-lg font-bold text-slate-900 mt-0.5">
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {PORTFOLIO_DATA.githubStats.prsMerged}
               </div>
             </div>
 
-            <div className="glass-subtle rounded-xl p-3 text-center">
-              <div className="flex items-center justify-center gap-1 text-slate-500 text-xs font-medium">
+            <div className="crystal-subtle rounded-2xl p-3 text-center border border-white/80">
+              <div className="flex items-center justify-center gap-1 text-slate-600 text-xs font-semibold">
                 <Zap className="w-3.5 h-3.5 text-emerald-500" />
                 <span>AI Boost</span>
               </div>
-              <div className="text-lg font-bold text-emerald-700 mt-0.5">
+              <div className="text-lg font-black text-emerald-700 mt-0.5">
                 {PORTFOLIO_DATA.githubStats.codeVelocityBoost}
               </div>
             </div>
@@ -154,12 +154,12 @@ export default function TechMatrixSection({
           {/* Commit Heatmap Visualizer */}
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-slate-600">
+              <span className="text-xs font-bold text-slate-700">
                 Continuous Deployment &amp; Engineering Activity
               </span>
-              <div className="flex items-center gap-1 text-[11px] text-slate-500">
+              <div className="flex items-center gap-1 text-[11px] text-slate-600 font-medium">
                 <span>Less</span>
-                <span className="w-2.5 h-2.5 rounded-sm bg-slate-200" />
+                <span className="w-2.5 h-2.5 rounded-sm bg-white/60 border border-slate-200" />
                 <span className="w-2.5 h-2.5 rounded-sm bg-purple-200" />
                 <span className="w-2.5 h-2.5 rounded-sm bg-indigo-400" />
                 <span className="w-2.5 h-2.5 rounded-sm bg-indigo-600" />
@@ -179,7 +179,7 @@ export default function TechMatrixSection({
                           setHoveredDay(`Week ${wIndex + 1}: ${commits} commits & tests passed`)
                         }
                         onMouseLeave={() => setHoveredDay(null)}
-                        className={`w-3.5 h-3.5 rounded-xs transition-all hover:scale-125 cursor-pointer ${getHeatmapColor(
+                        className={`w-3.5 h-3.5 rounded-xs transition-all hover:scale-125 cursor-pointer shadow-xs ${getHeatmapColor(
                           commits
                         )}`}
                         title={`${commits} verified commits`}
@@ -189,19 +189,19 @@ export default function TechMatrixSection({
                 ))}
               </div>
             </div>
-            <div className="h-4 text-[11px] text-indigo-700 font-medium">
+            <div className="h-4 text-[11px] text-indigo-800 font-semibold">
               {hoveredDay ? hoveredDay : "Hover squares to inspect verified deployment intervals"}
             </div>
           </div>
 
           {/* Language Breakdown */}
-          <div className="glass-subtle rounded-2xl p-4 flex flex-col justify-between">
+          <div className="crystal-subtle rounded-2xl p-4 flex flex-col justify-between border border-white/80">
             <div>
-              <span className="text-xs font-semibold text-slate-700 block mb-2">
+              <span className="text-xs font-bold text-slate-800 block mb-2">
                 Production Codebase Breakdown
               </span>
               {/* Stacked Bar */}
-              <div className="w-full h-3 rounded-full overflow-hidden flex bg-slate-200 mb-3 shadow-inner">
+              <div className="w-full h-3 rounded-full overflow-hidden flex bg-white/80 mb-3 shadow-inner border border-white">
                 {PORTFOLIO_DATA.githubStats.topLanguages.map((lang) => (
                   <div
                     key={lang.name}
@@ -219,11 +219,11 @@ export default function TechMatrixSection({
               {PORTFOLIO_DATA.githubStats.topLanguages.map((lang) => (
                 <div key={lang.name} className="flex items-center gap-1.5">
                   <span
-                    className="w-2.5 h-2.5 rounded-full inline-block"
+                    className="w-2.5 h-2.5 rounded-full inline-block shadow-xs"
                     style={{ backgroundColor: lang.color }}
                   />
-                  <span className="text-slate-700 font-medium truncate">{lang.name}</span>
-                  <span className="text-slate-400 font-semibold ml-auto">{lang.percentage}%</span>
+                  <span className="text-slate-700 font-bold truncate">{lang.name}</span>
+                  <span className="text-slate-500 font-extrabold ml-auto">{lang.percentage}%</span>
                 </div>
               ))}
             </div>
@@ -233,20 +233,20 @@ export default function TechMatrixSection({
 
       {/* Interactive Node Linking Active Filter Alert */}
       {activeTechFilter && (
-        <div className="mb-6 flex items-center justify-between glass-pill px-4 py-2 rounded-2xl border-indigo-200 bg-indigo-50/80">
-          <div className="flex items-center gap-2 text-xs font-semibold text-indigo-900">
+        <div className="mb-6 flex items-center justify-between crystal-pill px-4 py-2.5 rounded-2xl border-purple-300 bg-purple-50/70 shadow-md">
+          <div className="flex items-center gap-2 text-xs font-bold text-indigo-950">
             <Filter className="w-3.5 h-3.5 text-indigo-600" />
             <span>Active Project Filter:</span>
-            <span className="px-2 py-0.5 rounded-md bg-indigo-600 text-white font-mono">
+            <span className="px-2.5 py-0.5 rounded-lg bg-indigo-600 text-white font-mono shadow-xs">
               {activeTechFilter}
             </span>
-            <span className="text-indigo-600 font-normal">
+            <span className="text-indigo-700 font-medium">
               — Scroll to Section 3 to see matching project implementations
             </span>
           </div>
           <button
             onClick={() => onSelectTechFilter(null)}
-            className="text-xs font-bold text-indigo-700 hover:text-indigo-950 underline ml-3"
+            className="text-xs font-extrabold text-indigo-800 hover:text-indigo-950 underline ml-3"
           >
             Clear Filter
           </button>
@@ -258,16 +258,16 @@ export default function TechMatrixSection({
         {PORTFOLIO_DATA.technicalMatrix.map((category) => (
           <div
             key={category.title}
-            className="glass-panel holographic-sheen-container rounded-3xl p-6 border border-white/80 hover:border-white transition-all flex flex-col justify-between"
+            className="crystal-card crystal-sheen rounded-3xl p-6 border border-white/90 hover:border-white transition-all flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-9 h-9 rounded-xl bg-white/80 flex items-center justify-center shadow-xs">
+                <div className="w-10 h-10 rounded-2xl bg-white/85 flex items-center justify-center shadow-xs border border-white/95">
                   {getCategoryIcon(category.icon)}
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-base">{category.title}</h3>
-                  <p className="text-[11px] text-slate-500">{category.description}</p>
+                  <h3 className="font-extrabold text-slate-900 text-base">{category.title}</h3>
+                  <p className="text-[11px] text-slate-600 font-medium">{category.description}</p>
                 </div>
               </div>
 
@@ -282,19 +282,19 @@ export default function TechMatrixSection({
                         onSelectTechFilter(isSelected ? null : skill.name)
                       }
                       title={skill.description || skill.name}
-                      className={`text-xs px-3 py-1.5 rounded-xl font-medium transition-all duration-200 flex items-center gap-1.5 text-left ${
+                      className={`text-xs px-3 py-1.5 rounded-xl font-semibold transition-all duration-200 flex items-center gap-1.5 text-left ${
                         isSelected
-                          ? "bg-indigo-600 text-white shadow-md scale-105 ring-2 ring-indigo-400"
+                          ? "bg-indigo-600 text-white shadow-lg scale-105 ring-2 ring-purple-300"
                           : skill.highlight
-                          ? "bg-white/80 text-slate-900 hover:bg-indigo-50 hover:text-indigo-700 border border-white/90 shadow-2xs"
-                          : "bg-slate-100/70 text-slate-700 hover:bg-white border border-slate-200/50"
+                          ? "bg-white/85 text-slate-900 hover:bg-white hover:text-indigo-700 border border-white/95 shadow-xs"
+                          : "bg-white/50 text-slate-700 hover:bg-white/85 border border-white/70"
                       }`}
                     >
                       <span>{skill.name}</span>
                       {skill.highlight && (
                         <span
                           className={`w-1.5 h-1.5 rounded-full ${
-                            isSelected ? "bg-white" : "bg-indigo-500"
+                            isSelected ? "bg-white" : "bg-purple-500"
                           }`}
                         />
                       )}
@@ -304,9 +304,9 @@ export default function TechMatrixSection({
               </div>
             </div>
 
-            <div className="mt-5 pt-3 border-t border-slate-200/50 text-[11px] text-slate-500 flex items-center justify-between">
+            <div className="mt-5 pt-3 border-t border-slate-200/50 text-[11px] text-slate-600 font-medium flex items-center justify-between">
               <span>{category.skills.length} Core Technologies</span>
-              <span className="text-indigo-600 font-semibold cursor-pointer hover:underline">
+              <span className="text-indigo-600 font-bold cursor-pointer hover:underline">
                 Tap to link projects
               </span>
             </div>

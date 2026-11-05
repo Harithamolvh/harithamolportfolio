@@ -2,12 +2,11 @@
 
 @layer base {
   :root {
-    --canvas-lavender: #E6E6FA;
-    --canvas-rose: #FCE4EC;
-    --canvas-glacier: #E0F7FA;
-    --text-primary: #0F172A;
-    --text-secondary: #475569;
-    --accent-violet: #4338CA;
+    --crystal-white: rgba(255, 255, 255, 0.65);
+    --crystal-border: rgba(255, 255, 255, 0.88);
+    --crystal-highlight: rgba(255, 255, 255, 0.98);
+    --crystal-shadow: 0 24px 60px -12px rgba(167, 139, 250, 0.18), 0 8px 24px -6px rgba(14, 165, 233, 0.14);
+    --crystal-bevel: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(192, 132, 252, 0.25);
   }
 
   body {
@@ -21,177 +20,246 @@
   }
 }
 
-/* Ambient Canvas Background with dreamy iridescent mesh */
-.ambient-canvas {
-  background: linear-gradient(135deg, #F3E8FF 0%, #FCE7F3 35%, #E0F2FE 70%, #EDE9FE 100%);
+/* Luminous Crystal Ambient Canvas inspired by the Glass Butterfly */
+.crystal-canvas {
+  background: 
+    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(238, 226, 255, 0.75) 0%, transparent 70%),
+    radial-gradient(circle at 10% 25%, rgba(253, 232, 243, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 90% 30%, rgba(224, 247, 255, 0.7) 0%, transparent 50%),
+    radial-gradient(circle at 20% 75%, rgba(237, 233, 254, 0.65) 0%, transparent 60%),
+    radial-gradient(circle at 85% 80%, rgba(254, 240, 245, 0.65) 0%, transparent 60%),
+    linear-gradient(135deg, #FAF8FF 0%, #FFF5F8 30%, #F0F9FF 70%, #F5F3FF 100%);
   background-attachment: fixed;
   position: relative;
   min-height: 100vh;
 }
 
-/* Glassmorphism Surface Tokens */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  box-shadow: 
-    0 20px 50px -12px rgba(148, 163, 184, 0.22),
-    0 0 0 1px rgba(255, 255, 255, 0.7) inset;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel:hover {
-  border-color: rgba(255, 255, 255, 0.95);
-  box-shadow: 
-    0 30px 60px -15px rgba(139, 92, 246, 0.18),
-    0 0 0 1px rgba(255, 255, 255, 0.9) inset;
-}
-
-.glass-pill {
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+/* Crystal Card Material Tokens */
+.crystal-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.42) 100%);
+  backdrop-filter: blur(34px) saturate(220%) brightness(105%);
+  -webkit-backdrop-filter: blur(34px) saturate(220%) brightness(105%);
   border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 0 10px 30px -8px rgba(148, 163, 184, 0.2);
-}
-
-.glass-subtle {
-  background: rgba(255, 255, 255, 0.38);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-}
-
-.glass-terminal {
-  background: rgba(15, 23, 42, 0.88);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 
-    0 25px 60px -15px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-}
-
-/* Holographic Iridescent Gradients */
-.text-holographic {
-  background: linear-gradient(135deg, #3730A3 0%, #6D28D9 30%, #DB2777 65%, #0284C7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-holographic-glow {
-  background: linear-gradient(135deg, #4338CA 0%, #7C3AED 35%, #F43F5E 70%, #06B6D4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 14px rgba(168, 85, 247, 0.2));
-}
-
-.gradient-border-prismatic {
+    0 24px 60px -12px rgba(167, 139, 250, 0.16),
+    0 8px 24px -6px rgba(14, 165, 233, 0.12),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1.5px 2px 0 rgba(192, 132, 252, 0.22);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
-.gradient-border-prismatic::before {
+.crystal-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.52) 100%);
+  border-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 
+    0 35px 75px -15px rgba(147, 51, 234, 0.24),
+    0 12px 30px -8px rgba(56, 189, 248, 0.2),
+    inset 0 2px 3px 0 rgba(255, 255, 255, 1),
+    inset 0 -2px 3px 0 rgba(236, 72, 153, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Crystal Pill Container (for Nav, Badges, Filter Strips) */
+.crystal-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.52) 100%);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 
+    0 12px 36px -8px rgba(139, 92, 246, 0.15),
+    0 4px 14px -3px rgba(14, 165, 233, 0.1),
+    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
+    inset 0 -1px 2px 0 rgba(192, 132, 252, 0.2);
+}
+
+.crystal-subtle {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.28) 100%);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Crystal Smoky Quartz Terminal for IDE */
+.crystal-terminal {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 27, 75, 0.85) 100%);
+  backdrop-filter: blur(34px) saturate(200%);
+  -webkit-backdrop-filter: blur(34px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 
+    0 30px 80px -18px rgba(15, 23, 42, 0.6),
+    0 15px 35px -10px rgba(147, 51, 234, 0.25),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px 0 rgba(236, 72, 153, 0.2);
+}
+
+/* Crystal Prismatic Border (Refractive Rainbow Edge) */
+.crystal-prismatic-border {
+  position: relative;
+}
+
+.crystal-prismatic-border::before {
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(196, 181, 253, 0.7) 40%, rgba(251, 207, 232, 0.7) 70%, rgba(186, 230, 253, 0.9) 100%);
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(216, 180, 254, 0.8) 22%,
+    rgba(251, 207, 232, 0.75) 45%,
+    rgba(186, 230, 253, 0.85) 70%,
+    rgba(255, 255, 255, 0.95) 100%
+  );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
 }
 
-/* Holographic Sheen Sweep on Hover */
-.holographic-sheen-container {
+/* Crystal Shimmer Sheen Sweep */
+.crystal-sheen {
   position: relative;
   overflow: hidden;
 }
 
-.holographic-sheen-container::after {
+.crystal-sheen::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
   background: linear-gradient(
-    115deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0) 35%,
-    rgba(255, 255, 255, 0.45) 50%,
-    transparent 65%
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.05) 35%,
+    rgba(255, 255, 255, 0.55) 48%,
+    rgba(238, 226, 255, 0.65) 52%,
+    rgba(255, 255, 255, 0.05) 65%,
+    transparent 80%
   );
-  transform: translateX(-150%);
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-150%) rotate(25deg);
+  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
-.holographic-sheen-container:hover::after {
-  transform: translateX(150%);
+.crystal-sheen:hover::after {
+  transform: translateX(150%) rotate(25deg);
 }
 
-/* Ambient Floating Animation */
-@keyframes float-slow {
+/* Crystal Prismatic Letters & Headers */
+.text-crystal-title {
+  background: linear-gradient(
+    135deg,
+    #1E1B4B 0%,
+    #4338CA 20%,
+    #7C3AED 42%,
+    #C026D3 65%,
+    #0284C7 85%,
+    #312E81 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 14px rgba(168, 85, 247, 0.28));
+  position: relative;
+}
+
+.text-crystal-gleam {
+  background: linear-gradient(
+    135deg,
+    #2E1065 0%,
+    #6D28D9 30%,
+    #DB2777 60%,
+    #0369A1 85%,
+    #4338CA 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 8px rgba(216, 180, 254, 0.4));
+}
+
+.text-crystal-subtitle {
+  color: #334155;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+.text-crystal-accent {
+  background: linear-gradient(135deg, #4F46E5 0%, #9333EA 50%, #EC4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Prismatic Specular Caustic Flare */
+.crystal-caustic-flare {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(80px);
+  mix-blend-mode: screen;
+}
+
+/* Keyframe Animations */
+@keyframes crystal-float {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-16px) rotate(3deg);
+    transform: translateY(-12px) rotate(1.5deg);
   }
 }
 
-@keyframes float-reverse {
+@keyframes crystal-pulse {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(18px) rotate(-4deg);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    opacity: 0.35;
+    opacity: 0.4;
     transform: scale(1);
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.65;
     transform: scale(1.08);
   }
 }
 
-.animate-float-slow {
-  animation: float-slow 8s ease-in-out infinite;
+@keyframes rainbow-shift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
-.animate-float-reverse {
-  animation: float-reverse 10s ease-in-out infinite;
+.animate-crystal-float {
+  animation: crystal-float 7s ease-in-out infinite;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 6s ease-in-out infinite;
+.animate-crystal-pulse {
+  animation: crystal-pulse 5s ease-in-out infinite;
 }
 
-/* Custom Scrollbar */
+.animate-rainbow-shift {
+  animation: rainbow-shift 20s linear infinite;
+}
+
+/* Custom Scrollbar styled as crystal ice */
 ::-webkit-scrollbar {
   width: 9px;
   height: 9px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(241, 245, 249, 0.7);
+  background: rgba(248, 250, 252, 0.7);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(167, 139, 250, 0.45);
+  background: linear-gradient(180deg, rgba(192, 132, 252, 0.5) 0%, rgba(147, 197, 253, 0.5) 100%);
   border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.7);
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.75) 0%, rgba(56, 189, 248, 0.75) 100%);
 }
