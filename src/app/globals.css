@@ -1,265 +1,224 @@
-@import "tailwindcss";
+﻿@import 'tailwindcss';
 
+:root {
+	--bg-1: #F4F1FF;
+	--bg-2: #D9D4FF;
+	--bg-3: #B8B8F5;
+	--bg-4: #8E86E8;
+	--ink: #2B2468;
+	--ink-soft: #5E5A9A;
+	--glass-tint: rgba(255,255,255,0.18);
+	--glass-border: rgba(255,255,255,0.65);
+	--accent-iris: linear-gradient(135deg,#C9B8FF,#9FB8FF,#FFD6F0,#BDEBFF);
+	--glass-blur: 36px;
+	--glass-blur-hover: 42px;
+	--glass-edge: conic-gradient(from 145deg,rgba(189,235,255,.85),rgba(201,184,255,.7) 22%,rgba(255,255,255,.95) 39%,rgba(255,214,240,.8) 58%,rgba(159,184,255,.75) 78%,rgba(189,235,255,.85));
+	--glass-fill: radial-gradient(ellipse at 0% 0%,rgba(255,255,255,.42),transparent 58%),linear-gradient(125deg,rgba(255,255,255,.34),rgba(244,241,255,.12) 48%,rgba(217,212,255,.22));
+	--glass-shadow: 0 12px 36px rgba(110,100,220,.14),0 2px 8px rgba(142,134,232,.09),inset 0 2px 1px rgba(255,255,255,1),inset 0 6px 12px rgba(255,255,255,.42),inset 2px 0 4px rgba(255,214,240,.5),inset -2px 0 4px rgba(189,235,255,.55),inset -1px -2px 3px rgba(255,255,255,.75),inset 0 -7px 12px rgba(142,134,232,.12);
+	--glass-ease: cubic-bezier(.2,.8,.2,1);
+	color-scheme: light;
+}
+@theme inline {
+	--font-sans: 'Inter', sans-serif;
+	--font-mono: 'JetBrains Mono', monospace;
+}
 @layer base {
-  :root {
-    --crystal-white: rgba(255, 255, 255, 0.65);
-    --crystal-border: rgba(255, 255, 255, 0.88);
-    --crystal-highlight: rgba(255, 255, 255, 0.98);
-    --crystal-shadow: 0 24px 60px -12px rgba(167, 139, 250, 0.18), 0 8px 24px -6px rgba(14, 165, 233, 0.14);
-    --crystal-bevel: inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95), inset 0 -1.5px 2px 0 rgba(192, 132, 252, 0.25);
-  }
-
-  body {
-    background-color: #F8FAFC;
-    color: #0F172A;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  }
-
-  code, pre, kbd {
-    font-family: 'JetBrains Mono', 'Fira Code', monospace;
-  }
+	html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+	body { background: linear-gradient(135deg,var(--bg-1),#edeaff); color: var(--ink-soft); font-family: 'Inter',sans-serif; overflow-x: clip; }
+	h1,h2,h3,h4,h5,h6 { font-family: 'Space Grotesk','Sora',sans-serif; color: var(--ink); letter-spacing: .025em; text-wrap: balance; }
+	button,a,input,select,textarea { -webkit-tap-highlight-color: transparent; transition-duration: 350ms; transition-timing-function: var(--glass-ease); }
+	button:not(:disabled),select { cursor: pointer; }
+	:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+	::selection { background: var(--bg-2); color: var(--ink); }
+	input,select,textarea { color: var(--ink); }
+	input::placeholder,textarea::placeholder { color: var(--ink-soft); opacity: 1; }
+	option { background: var(--bg-1); color: var(--ink); }
 }
-
-/* Luminous Crystal Ambient Canvas inspired by the Glass Butterfly */
 .crystal-canvas {
-  background: 
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(238, 226, 255, 0.75) 0%, transparent 70%),
-    radial-gradient(circle at 10% 25%, rgba(253, 232, 243, 0.6) 0%, transparent 50%),
-    radial-gradient(circle at 90% 30%, rgba(224, 247, 255, 0.7) 0%, transparent 50%),
-    radial-gradient(circle at 20% 75%, rgba(237, 233, 254, 0.65) 0%, transparent 60%),
-    radial-gradient(circle at 85% 80%, rgba(254, 240, 245, 0.65) 0%, transparent 60%),
-    linear-gradient(135deg, #FAF8FF 0%, #FFF5F8 30%, #F0F9FF 70%, #F5F3FF 100%);
-  background-attachment: fixed;
-  position: relative;
-  min-height: 100vh;
+	/* Deepen the supplied secondary indigo for the reference's richer lilac light. */
+	--ink-soft: color-mix(in srgb,#5E5A9A 65%,#2B2468);
+	background:
+		radial-gradient(ellipse at 2% 0%,rgba(255,255,255,.85),transparent 38%),
+		radial-gradient(ellipse at 94% 16%,rgba(142,134,232,.3),transparent 34%),
+		radial-gradient(ellipse at 8% 45%,rgba(184,184,245,.55),transparent 32%),
+		radial-gradient(ellipse at 96% 76%,rgba(142,134,232,.26),transparent 34%),
+		linear-gradient(165deg,#eae5fa,var(--bg-2) 26%,#e9e5fc 53%,#d8d5f7 78%,#eae7fc);
+	position: relative;
+	isolation: isolate;
+	min-height: 100vh;
+}
+/* Shared material: legacy crystal classes intentionally use the same tokens.
+   Reflections stay behind content, preserving contrast and pointer access. */
+:is(.glass-surface,.crystal-card,.glass-terminal,.crystal-terminal,.glass-pill,.crystal-pill,.glass-chip,.glass-btn,.glass-inset,.glass-input) {
+	position: relative;
+	isolation: isolate;
+	background: var(--glass-fill);
+	backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+	border: 1px solid var(--glass-border);
+	border-radius: 24px;
+	box-shadow: var(--glass-shadow);
+	color: var(--ink);
+	transition: transform 350ms var(--glass-ease),box-shadow 350ms var(--glass-ease),border-color 350ms var(--glass-ease),backdrop-filter 350ms var(--glass-ease);
+}
+:is(.glass-surface,.crystal-card,.glass-terminal,.crystal-terminal,.glass-pill,.crystal-pill,.glass-chip,.glass-btn,.glass-inset)::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	/* Mask only the rim, leaving the center transparent and text unaffected. */
+	padding: 1.5px;
+	background: var(--glass-edge);
+	-webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+	mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+	-webkit-mask-composite: xor;
+	mask-composite: exclude;
+	opacity: .85;
+	pointer-events: none;
+	z-index: -1;
+}
+:is(.glass-surface,.crystal-card,.glass-pill,.crystal-pill,.glass-chip,.glass-btn,.glass-inset)::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(110deg,transparent 35%,rgba(255,255,255,.65) 49%,rgba(201,184,255,.2) 53%,transparent 65%);
+	background-size: 300% 100%;
+	background-position: 100% 0;
+	opacity: 0;
+	transition: background-position 400ms var(--glass-ease),opacity 350ms var(--glass-ease);
+	pointer-events: none;
+	z-index: -1;
+}
+.glass-pill,.crystal-pill,.glass-chip { border-radius: 999px; }
+.glass-btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font-weight: 600; }
+.glass-btn-primary,.glass-selected {
+	background: linear-gradient(135deg,rgba(184,184,245,.6),rgba(217,212,255,.35));
+	color: var(--ink);
+	border-color: rgba(142,134,232,.65);
+	box-shadow: var(--glass-shadow),inset 0 0 0 1px rgba(142,134,232,.2);
+}
+.glass-chip { display: inline-flex; align-items: center; gap: .35rem; padding: .35rem .75rem; }
+.glass-label,.glass-chip { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; }
+.glass-inset { box-shadow: inset 0 2px 1px rgba(255,255,255,1),inset 0 5px 9px rgba(255,255,255,.4),inset 1px 0 3px rgba(255,214,240,.5),inset -1px 0 3px rgba(189,235,255,.55),inset 0 -2px 4px rgba(184,184,245,.28),0 4px 18px rgba(110,100,220,.08); }
+.glass-input { background: linear-gradient(135deg,rgba(255,255,255,.55),rgba(255,255,255,.2)); min-height: 44px; font-size: 16px; }
+.glass-input:focus { outline: 2px solid var(--ink-soft); outline-offset: 3px; }
+.glass-terminal,.crystal-terminal { overflow: hidden; }
+.glass-hero-title {
+	font-family: 'Space Grotesk','Sora',sans-serif;
+	letter-spacing: .015em;
+	background: linear-gradient(155deg,var(--ink) 20%,var(--ink-soft) 55%,var(--ink) 90%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-shadow: 0 2px 18px rgba(142,134,232,.12);
+}
+.text-crystal-title,.iridescent-text { color: var(--ink); }
+/* Native controls share glass material, including embedded simulator controls. */
+:where(.crystal-canvas button,.crystal-canvas input,.crystal-canvas select,.crystal-canvas textarea) {
+	border: 1px solid var(--glass-border);
+	border-radius: 24px;
+	background-image: var(--glass-fill);
+	backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+	-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+	box-shadow: var(--glass-shadow);
+}
+.crystal-canvas :where(button) { min-height: 44px; }
+.crystal-canvas :where(button:disabled) { cursor: wait; opacity: .6; }
+.crystal-canvas :where(button:active:not(:disabled),.glass-btn:active) { transform: scale(.97); }
+.crystal-canvas main > section { scroll-margin-top: 7rem; }
+.crystal-canvas main > section:not(:first-child) { padding-block: clamp(3.5rem,7vw,7rem); }
+.crystal-canvas :where(h1,h2,h3) { letter-spacing: .025em; }
+.glass-overlay { background: linear-gradient(135deg,rgba(217,212,255,.8),rgba(184,184,245,.7)); }
+.glass-dialog { background: linear-gradient(135deg,rgba(244,241,255,.96),rgba(217,212,255,.92)); }
+.glass-stationary:hover { transform: none !important; }
+.glass-orbit {
+	position: absolute;
+	width: clamp(13rem,30vw,27rem);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	border: 1px solid rgba(255,255,255,.75);
+	background:
+		radial-gradient(ellipse 15% 8% at 24% 18%,rgba(255,255,255,.95),transparent 85%),
+		radial-gradient(ellipse 9% 17% at 80% 77%,rgba(255,255,255,.8),transparent 85%),
+		radial-gradient(circle at 48% 47%,transparent 54%,rgba(255,255,255,.55) 66%,rgba(184,184,245,.35) 69%,rgba(255,255,255,.7) 71%,transparent 74%),
+		conic-gradient(from 25deg,rgba(201,184,255,.05),rgba(189,235,255,.2),rgba(255,214,240,.28),rgba(201,184,255,.08));
+	box-shadow: inset 5px 3px 10px rgba(255,255,255,.85),inset -6px -5px 12px rgba(142,134,232,.24),inset -2px -3px 3px rgba(255,255,255,.8),0 16px 40px rgba(110,100,220,.1);
+	opacity: .8;
+}
+.glass-orbit::before {
+	content: '';
+	position: absolute;
+	inset: 3%;
+	border: 1px solid rgba(255,255,255,.45);
+	border-radius: inherit;
+	box-shadow: inset 2px 1px 8px rgba(255,255,255,.4);
+}
+.glass-orbit-one { top: 10rem; left: -14%; }
+.glass-orbit-two { top: 35rem; right: -18%; width: clamp(10rem,23vw,20rem); }
+.glass-orbit-three { top: 43%; left: -5rem; width: clamp(8rem,18vw,16rem); }
+.glass-orbit-four { bottom: 12rem; right: -4rem; width: clamp(12rem,25vw,22rem); }
+/* Broad studio light and curved refraction stay behind every content surface. */
+.crystal-lightfield {
+	position: absolute;
+	inset: 0;
+	background: radial-gradient(ellipse 65% 22% at 15% 0%,rgba(255,255,255,.52),transparent 80%),radial-gradient(ellipse 45% 12% at 100% 13%,rgba(201,184,255,.2),transparent 80%);
+}
+.crystal-ribbon {
+	position: absolute;
+	top: 39rem;
+	left: -18%;
+	width: 136%;
+	height: clamp(8rem,19vw,20rem);
+	border-radius: 50%;
+	border: 1px solid rgba(255,255,255,.55);
+	background: linear-gradient(175deg,transparent 30%,rgba(255,255,255,.12) 48%,rgba(217,212,255,.22) 70%,transparent);
+	box-shadow: inset 0 5px 5px rgba(255,255,255,.7),inset 0 12px 18px rgba(189,235,255,.18),inset 0 -5px 8px rgba(255,255,255,.55),0 8px 22px rgba(142,134,232,.1);
+	transform: rotate(-14deg);
+	opacity: .65;
+}
+.crystal-ribbon-lower { top: 64%; transform: rotate(12deg); opacity: .35; }
+.cursor-caustic { position: fixed; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle,rgba(217,212,255,.4),transparent 65%); opacity: 0; }
+.skip-link { position: fixed; top: 1rem; left: 1rem; z-index: 100; padding: .8rem 1.2rem; transform: translateY(-200%); }
+.skip-link:focus { transform: translateY(0); }
+@media (hover: hover) and (pointer: fine) {
+	:is(.glass-surface,.crystal-card,.glass-chip,.glass-btn):hover {
+		transform: translateY(-6px);
+		backdrop-filter: blur(var(--glass-blur-hover)) saturate(175%);
+		-webkit-backdrop-filter: blur(var(--glass-blur-hover)) saturate(175%);
+		border-color: rgba(255,255,255,.95);
+		box-shadow: var(--glass-shadow),0 0 20px rgba(201,184,255,.35),2px 0 12px rgba(189,235,255,.25),-2px 0 12px rgba(255,214,240,.25);
+	}
+	:is(.glass-surface,.crystal-card,.glass-pill,.crystal-pill,.glass-chip,.glass-btn,.glass-inset):hover::after { background-position: 0 0; opacity: .8; }
+}
+@media (min-width: 640px) {
+	.glass-orbit-one { left: -8%; }
+	.glass-orbit-two { right: -6%; }
+}
+@media (prefers-reduced-motion: no-preference) {
+	[data-reveal='waiting'] { opacity: 0; transform: translateY(20px); }
+	[data-reveal='visible'] { animation: glass-reveal 400ms var(--glass-ease) both; }
+	@keyframes glass-reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+}
+@media (prefers-reduced-motion: reduce) {
+	*,::before,::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+	:is(.glass-surface,.crystal-card,.glass-chip,.glass-btn):hover { transform: none; }
+	.cursor-caustic { display: none; }
+}
+@supports not (backdrop-filter: blur(22px)) {
+	:is(.glass-surface,.crystal-card,.glass-pill,.glass-btn,.glass-input,.glass-inset) { background: linear-gradient(135deg,#f4f1ff,#eae6ff); }
+}
+@media print {
+	.glass-orbit,.crystal-lightfield,.crystal-ribbon,.cursor-caustic,.skip-link { display: none; }
+	[data-reveal] { opacity: 1 !important; transform: none !important; }
+	:is(.glass-surface,.crystal-card,.glass-inset,.glass-dialog) { box-shadow: none; backdrop-filter: none; }
 }
 
-/* Crystal Card Material Tokens */
-.crystal-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.42) 100%);
-  backdrop-filter: blur(34px) saturate(220%) brightness(105%);
-  -webkit-backdrop-filter: blur(34px) saturate(220%) brightness(105%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 
-    0 24px 60px -12px rgba(167, 139, 250, 0.16),
-    0 8px 24px -6px rgba(14, 165, 233, 0.12),
-    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1.5px 2px 0 rgba(192, 132, 252, 0.22);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-}
-
-.crystal-card:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.52) 100%);
-  border-color: rgba(255, 255, 255, 0.98);
-  box-shadow: 
-    0 35px 75px -15px rgba(147, 51, 234, 0.24),
-    0 12px 30px -8px rgba(56, 189, 248, 0.2),
-    inset 0 2px 3px 0 rgba(255, 255, 255, 1),
-    inset 0 -2px 3px 0 rgba(236, 72, 153, 0.25);
-  transform: translateY(-2px);
-}
-
-/* Crystal Pill Container (for Nav, Badges, Filter Strips) */
-.crystal-pill {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.52) 100%);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  box-shadow: 
-    0 12px 36px -8px rgba(139, 92, 246, 0.15),
-    0 4px 14px -3px rgba(14, 165, 233, 0.1),
-    inset 0 1px 2px 0 rgba(255, 255, 255, 1),
-    inset 0 -1px 2px 0 rgba(192, 132, 252, 0.2);
-}
-
-.crystal-subtle {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.48) 0%, rgba(255, 255, 255, 0.28) 100%);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.85);
-}
-
-/* Crystal Smoky Quartz Terminal for IDE */
-.crystal-terminal {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 27, 75, 0.85) 100%);
-  backdrop-filter: blur(34px) saturate(200%);
-  -webkit-backdrop-filter: blur(34px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 
-    0 30px 80px -18px rgba(15, 23, 42, 0.6),
-    0 15px 35px -10px rgba(147, 51, 234, 0.25),
-    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 2px 0 rgba(236, 72, 153, 0.2);
-}
-
-/* Crystal Prismatic Border (Refractive Rainbow Edge) */
-.crystal-prismatic-border {
-  position: relative;
-}
-
-.crystal-prismatic-border::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(216, 180, 254, 0.8) 22%,
-    rgba(251, 207, 232, 0.75) 45%,
-    rgba(186, 230, 253, 0.85) 70%,
-    rgba(255, 255, 255, 0.95) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* Crystal Shimmer Sheen Sweep */
-.crystal-sheen {
-  position: relative;
-  overflow: hidden;
-}
-
-.crystal-sheen::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.05) 35%,
-    rgba(255, 255, 255, 0.55) 48%,
-    rgba(238, 226, 255, 0.65) 52%,
-    rgba(255, 255, 255, 0.05) 65%,
-    transparent 80%
-  );
-  transform: translateX(-150%) rotate(25deg);
-  transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
-.crystal-sheen:hover::after {
-  transform: translateX(150%) rotate(25deg);
-}
-
-/* Crystal Prismatic Letters & Headers */
-.text-crystal-title {
-  background: linear-gradient(
-    135deg,
-    #1E1B4B 0%,
-    #4338CA 20%,
-    #7C3AED 42%,
-    #C026D3 65%,
-    #0284C7 85%,
-    #312E81 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 14px rgba(168, 85, 247, 0.28));
-  position: relative;
-}
-
-.text-crystal-gleam {
-  background: linear-gradient(
-    135deg,
-    #2E1065 0%,
-    #6D28D9 30%,
-    #DB2777 60%,
-    #0369A1 85%,
-    #4338CA 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 8px rgba(216, 180, 254, 0.4));
-}
-
-.text-crystal-subtitle {
-  color: #334155;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9);
-}
-
-.text-crystal-accent {
-  background: linear-gradient(135deg, #4F46E5 0%, #9333EA 50%, #EC4899 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Prismatic Specular Caustic Flare */
-.crystal-caustic-flare {
-  position: absolute;
-  pointer-events: none;
-  border-radius: 9999px;
-  filter: blur(80px);
-  mix-blend-mode: screen;
-}
-
-/* Keyframe Animations */
-@keyframes crystal-float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-12px) rotate(1.5deg);
-  }
-}
-
-@keyframes crystal-pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.65;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes rainbow-shift {
-  0% {
-    filter: hue-rotate(0deg);
-  }
-  100% {
-    filter: hue-rotate(360deg);
-  }
-}
-
-.animate-crystal-float {
-  animation: crystal-float 7s ease-in-out infinite;
-}
-
-.animate-crystal-pulse {
-  animation: crystal-pulse 5s ease-in-out infinite;
-}
-
-.animate-rainbow-shift {
-  animation: rainbow-shift 20s linear infinite;
-}
-
-/* Custom Scrollbar styled as crystal ice */
-::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
-}
-
-::-webkit-scrollbar-track {
-  background: rgba(248, 250, 252, 0.7);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(192, 132, 252, 0.5) 0%, rgba(147, 197, 253, 0.5) 100%);
-  border-radius: 9999px;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(168, 85, 247, 0.75) 0%, rgba(56, 189, 248, 0.75) 100%);
-}
+/* Keep utility positioning on floating menus and sticky reader toolbars. */
+.crystal-canvas .absolute { position: absolute; }
+.crystal-canvas .fixed { position: fixed; }
+.crystal-canvas .sticky { position: sticky; }
+.glass-rose { background: linear-gradient(135deg,rgba(255,214,240,.4),rgba(255,255,255,.12)); }
+.glass-lilac { background: linear-gradient(135deg,rgba(184,184,245,.4),rgba(255,255,255,.12)); }
+.glass-overlay > .glass-dialog { max-height: 90dvh; overflow-y: auto; }
+.glass-overlay > .min-h-screen { max-height: none; }

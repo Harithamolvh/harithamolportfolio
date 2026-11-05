@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { PORTFOLIO_DATA } from "@/data/portfolioData";
+import { useDialogAccessibility } from '@/lib/useDialogAccessibility';
 import { Copy, Check, X, Sparkles, FileText } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -12,6 +13,7 @@ interface AtsModalProps {
 
 export default function AtsModal({ isOpen, onClose }: AtsModalProps) {
   const [copied, setCopied] = useState(false);
+  const dialogRef = useDialogAccessibility(isOpen, onClose);
 
   if (!isOpen) return null;
 
@@ -92,6 +94,8 @@ KEY PROJECTS
     navigator.clipboard.writeText(atsPlainText);
     setCopied(true);
     confetti({
+      disableForReducedMotion: true,
+      colors: ['#C9B8FF', '#9FB8FF', '#FFD6F0', '#BDEBFF'],
       particleCount: 50,
       spread: 60,
       origin: { y: 0.5 },
@@ -100,19 +104,19 @@ KEY PROJECTS
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="crystal-card bg-white/95 rounded-3xl p-6 sm:p-8 max-w-3xl w-full border border-white/95 shadow-2xl flex flex-col max-h-[85vh]">
+    <div ref={dialogRef} role='dialog' aria-modal='true' aria-label='Plain text resume' tabIndex={-1} className="fixed inset-0 z-50 flex items-center justify-center p-4 glass-overlay backdrop-blur-md animate-in fade-in duration-200">
+      <div className="crystal-card glass-inset glass-dialog glass-stationary rounded-3xl p-6 sm:p-8 max-w-3xl w-full border border-white/95 flex flex-col max-h-[85vh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+        <div className="flex items-center justify-between pb-4 border-b border-[var(--glass-border)]">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-700 border border-purple-200 shadow-xs">
+            <div className="w-10 h-10 rounded-2xl glass-inset flex items-center justify-center text-[var(--ink)] border border-[var(--glass-border)]">
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-slate-900 tracking-tight">
+              <h3 className="text-lg font-black text-[var(--ink)] tracking-tight">
                 ATS-Optimized Plain Text Resume
               </h3>
-              <p className="text-xs text-slate-600 font-medium">
+              <p className="text-xs text-[var(--ink-soft)] font-medium">
                 Parsed and validated for Applicant Tracking Systems (Workday, Greenhouse, Lever)
               </p>
             </div>
@@ -120,36 +124,36 @@ KEY PROJECTS
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 transition-colors"
+            className="glass-btn w-8 h-8 rounded-full glass-inset hover:border-[var(--bg-4)] border border-[var(--glass-border)] flex items-center justify-center text-[var(--ink-soft)] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Text Container */}
-        <div className="flex-1 overflow-y-auto my-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 leading-relaxed whitespace-pre-wrap select-all">
+        <div className="flex-1 overflow-y-auto my-4 p-4 rounded-2xl glass-inset border border-[var(--glass-border)] text-xs font-mono text-[var(--ink)] leading-relaxed whitespace-pre-wrap select-all">
           {atsPlainText}
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between pt-3 border-t border-slate-200">
-          <span className="text-xs text-slate-500">
+        <div className="flex flex-wrap gap-3 items-center justify-between pt-3 border-t border-[var(--glass-border)]">
+          <span className="text-xs text-[var(--ink-soft)]">
             Click &quot;Copy ATS Text&quot; to paste directly into recruiter portals
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
+              className="glass-btn px-4 py-2 rounded-xl text-xs font-semibold text-[var(--ink-soft)] hover:border-[var(--bg-4)]"
             >
               Close
             </button>
             <button
               onClick={handleCopy}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-md transition-all active:scale-95"
+              className="glass-btn inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl text-xs font-bold text-[var(--ink)] glass-inset hover:border-[var(--bg-4)] transition-all active:scale-95"
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-300" />
+                  <Check className="w-4 h-4 text-[var(--ink-soft)]" />
                   <span>Copied to Clipboard!</span>
                 </>
               ) : (

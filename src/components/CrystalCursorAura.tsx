@@ -1,51 +1,57 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useRef, type CSSProperties } from 'react';
 
+/** Fixed scene uses seven deterministic bubbles; separate nested transforms allow parallax and float. */
+const BUBBLES = [
+	{ left: '4%', top: '16%', size: 116, delay: -2, depth: false },
+	{ left: '83%', top: '12%', size: 66, delay: -5, depth: false },
+	{ left: '72%', top: '38%', size: 174, delay: -8, depth: true },
+	{ left: '13%', top: '66%', size: 48, delay: -3, depth: false },
+	{ left: '91%', top: '76%', size: 110, delay: -7, depth: false },
+	{ left: '40%', top: '86%', size: 64, delay: -1, depth: true },
+	{ left: '2%', top: '44%', size: 200, delay: -6, depth: true },
+] as const;
+
+/** Paint a fixed pastel light stage; scroll moves its decorations at 0.3x with no React rerenders. */
 export default function CrystalCursorAura() {
-  const [mousePos, setMousePos] = useState({ x: -200, y: -200 });
-  const [smoothPos, setSmoothPos] = useState({ x: -200, y: -200 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
-  // Smooth lerp for liquid crystal refraction feeling
-  useEffect(() => {
-    let animId: number;
-    const lerp = () => {
-      setSmoothPos((prev) => ({
-        x: prev.x + (mousePos.x - prev.x) * 0.12,
-        y: prev.y + (mousePos.y - prev.y) * 0.12,
-      }));
-      animId = requestAnimationFrame(lerp);
-    };
-    animId = requestAnimationFrame(lerp);
-    return () => cancelAnimationFrame(animId);
-  }, [mousePos]);
-
-  return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      {/* Dynamic Cursor Light Caustic Flare */}
-      <div
-        className="absolute w-[480px] h-[480px] rounded-full blur-[100px] opacity-60 transition-transform duration-75 ease-out"
-        style={{
-          transform: `translate3d(${smoothPos.x - 240}px, ${smoothPos.y - 240}px, 0)`,
-          background:
-            "radial-gradient(circle, rgba(238, 226, 255, 0.75) 0%, rgba(254, 215, 226, 0.5) 40%, rgba(186, 230, 253, 0.55) 70%, transparent 100%)",
-        }}
-      />
-
-      {/* Ambient Crystal Dispersion Flares */}
-      <div className="absolute top-[8%] left-[15%] w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-purple-200/40 via-pink-200/35 to-sky-200/40 blur-[120px] animate-crystal-pulse" />
-      <div className="absolute top-[35%] right-[10%] w-[500px] h-[500px] rounded-full bg-gradient-to-bl from-sky-200/45 via-indigo-200/35 to-pink-200/40 blur-[140px] animate-crystal-float" />
-      <div className="absolute top-[65%] left-[8%] w-[460px] h-[460px] rounded-full bg-gradient-to-tr from-violet-200/45 via-rose-200/35 to-cyan-200/35 blur-[130px] animate-crystal-pulse" />
-      <div className="absolute bottom-[5%] right-[20%] w-[520px] h-[520px] rounded-full bg-gradient-to-tl from-purple-200/40 via-sky-200/40 to-pink-100/40 blur-[130px] animate-crystal-float" />
-    </div>
-  );
+	const sceneRef = useRef<HTMLDivElement>(null);
+	useEffect(() => {
+		const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+		let frame = 0;
+		/** Map document scroll to the full gradient and viewport-recycled decorative depth. */
+		const paint = () => {
+			frame = 0;
+			const scene = sceneRef.current;
+			if (!scene) return;
+			const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+			scene.style.setProperty('--scene-progress', String(window.scrollY / maxScroll));
+			scene.style.setProperty('--parallax', preference.matches ? '0px' : String(-(window.scrollY * 0.3 % window.innerHeight)) + 'px');
+		};
+		/** Batch all scroll and resize updates into a single animation frame. */
+		const schedulePaint = () => { if (!frame) frame = requestAnimationFrame(paint); };
+		paint();
+		window.addEventListener('scroll', schedulePaint, { passive: true });
+		window.addEventListener('resize', schedulePaint);
+		preference.addEventListener('change', schedulePaint);
+		return () => {
+			cancelAnimationFrame(frame);
+			window.removeEventListener('scroll', schedulePaint);
+			window.removeEventListener('resize', schedulePaint);
+			preference.removeEventListener('change', schedulePaint);
+		};
+	}, []);
+	return (
+		<div ref={sceneRef} className='pastel-scene' aria-hidden='true'>
+			<div className='scene-base' />
+			<div className='scene-light-orb orb-violet' /><div className='scene-light-orb orb-blue' /><div className='scene-light-orb orb-pink' />
+			<div className='scene-bloom bloom-left' /><div className='scene-bloom bloom-right' />
+			<div className='scene-streak streak-one' /><div className='scene-streak streak-two' />
+			{[0, 1].map((layer) => <div className='scene-parallax-layer' key={layer} style={{ '--layer': layer } as CSSProperties}>
+				{BUBBLES.map((bubble, index) => <span key={index} className={'scene-bubble' + (bubble.depth ? ' bubble-distant' : '')} style={{ left: bubble.left, top: bubble.top, width: bubble.size, '--float-delay': bubble.delay + 's' } as CSSProperties} />)}
+				<div className='scene-torus' />
+			</div>)}
+			<div className='scene-sparkles'>✧<span>✦</span><i>✧</i></div>
+		</div>
+	);
 }

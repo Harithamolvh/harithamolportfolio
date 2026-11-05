@@ -61,23 +61,23 @@ export default function PipelineTracker() {
   ];
 
   return (
-    <div className="crystal-card rounded-3xl p-5 sm:p-6 border border-white/95 shadow-xl mt-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-200/60 mb-5">
+    <div className="crystal-card rounded-3xl p-5 sm:p-6 border border-white/95 mt-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[var(--glass-border)] mb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
-            <span className="text-xs font-black uppercase tracking-wider text-indigo-900 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+            <span className="w-2.5 h-2.5 rounded-full glass-inset animate-ping" />
+            <span className="text-xs font-black uppercase tracking-wider text-[var(--ink)] flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-[var(--ink-soft)]" />
               Machinery Service Lifecycle Pipeline
             </span>
           </div>
-          <p className="text-xs text-slate-600 mt-0.5 font-medium">
+          <p className="text-xs text-[var(--ink-soft)] mt-0.5 font-medium">
             Click any milestone to inspect end-to-end auditability and CI/CD automated deployment checks.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-800 crystal-pill px-3.5 py-1.5 rounded-full border border-white/90">
-          <Container className="w-3.5 h-3.5 text-indigo-600" />
+        <div className="flex items-center gap-2 text-xs font-bold text-[var(--ink)] crystal-pill px-3.5 py-1.5 rounded-full border border-white/90">
+          <Container className="w-3.5 h-3.5 text-[var(--ink-soft)]" />
           <span>Docker + GitHub Actions CI/CD</span>
         </div>
       </div>
@@ -94,20 +94,20 @@ export default function PipelineTracker() {
               onClick={() => setActiveStep(index)}
               className={`p-3 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                 isCurrent
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg border-white/60 scale-102"
+                  ? "glass-inset   text-[var(--ink)]  border-white/60 scale-102"
                   : isPassed
-                  ? "bg-emerald-50/90 text-emerald-950 border-emerald-200 hover:bg-emerald-100"
-                  : "bg-white/70 text-slate-700 border-white/90 hover:bg-white"
+                  ? "glass-inset text-[var(--ink)] border-[var(--glass-border)] hover:border-[var(--bg-4)]"
+                  : "glass-inset text-[var(--ink)] border-white/90 hover:border-[var(--bg-4)]"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <span
                   className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-black ${
                     isCurrent
-                      ? "bg-white/20 text-white"
+                      ? "glass-inset text-[var(--ink)]"
                       : isPassed
-                      ? "bg-emerald-200 text-emerald-800"
-                      : "bg-white text-slate-600 border border-slate-200"
+                      ? "glass-inset text-[var(--ink)]"
+                      : "glass-inset text-[var(--ink-soft)] border border-[var(--glass-border)]"
                   }`}
                 >
                   {isPassed ? <CheckCircle2 className="w-4 h-4" /> : index + 1}
@@ -121,29 +121,29 @@ export default function PipelineTracker() {
       </div>
 
       {/* Selected Step Detail Inspector */}
-      <div className="rounded-3xl bg-white/80 border border-white/95 p-5 shadow-sm backdrop-blur-md">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+      <div className="rounded-3xl glass-inset border border-white/95 p-5 backdrop-blur-md">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-3 border-b border-[var(--glass-border)]">
           <div>
-            <span className="text-[10px] font-black uppercase text-purple-700 tracking-wider">
+            <span className="text-[10px] font-black uppercase text-[var(--ink)] tracking-wider">
               Selected Milestone Detail
             </span>
-            <h4 className="text-sm font-extrabold text-slate-900 mt-0.5">
+            <h4 className="text-sm font-extrabold text-[var(--ink)] mt-0.5">
               Stage {activeStep + 1}: {steps[activeStep].title}
             </h4>
           </div>
-          <span className="px-3 py-1 rounded-full bg-purple-50 text-purple-800 text-xs font-bold border border-purple-200 shadow-2xs">
+          <span className="px-3 py-1 rounded-full glass-inset text-[var(--ink)] text-xs font-bold border border-[var(--glass-border)]">
             Audit State: Verified &amp; Logged
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-xs">
           <div>
-            <span className="font-bold text-slate-600 block mb-1">Operational Flow</span>
-            <p className="text-slate-800 leading-relaxed font-medium">{steps[activeStep].description}</p>
+            <span className="font-bold text-[var(--ink-soft)] block mb-1">Operational Flow</span>
+            <p className="text-[var(--ink)] leading-relaxed font-medium">{steps[activeStep].description}</p>
           </div>
           <div>
-            <span className="font-bold text-indigo-700 block mb-1">Architectural Implementation</span>
-            <p className="text-slate-800 leading-relaxed font-mono text-[11px] bg-white/70 p-2.5 rounded-xl border border-white/90 shadow-inner">
+            <span className="font-bold text-[var(--ink)] block mb-1">Architectural Implementation</span>
+            <p className="text-[var(--ink)] leading-relaxed font-mono text-[11px] glass-inset p-2.5 rounded-xl border border-white/90">
               {steps[activeStep].technicalDetail}
             </p>
           </div>

@@ -1,77 +1,51 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import TechMatrixSection from "@/components/TechMatrixSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import CodeConsoleSection from "@/components/CodeConsoleSection";
-import TimelineSection from "@/components/TimelineSection";
-import ContactSection from "@/components/ContactSection";
-import Footer from "@/components/Footer";
-import ResumeModal from "@/components/ResumeModal";
-import AtsModal from "@/components/AtsModal";
-import CrystalCursorAura from "@/components/CrystalCursorAura";
+import { route } from '@qubitcodes/qcrouter';
+import '@/lib/navigation';
+import { usePortfolioQuery, updatePortfolioQuery } from '@/lib/usePortfolioQuery';
+import Navbar from '@/components/Navbar';
+import HeroSection from '@/components/HeroSection';
+import TechMatrixSection from '@/components/TechMatrixSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import ProcessSection from '@/components/ProcessSection';
+import StatsSection from '@/components/StatsSection';
+import CodeConsoleSection from '@/components/CodeConsoleSection';
+import TimelineSection from '@/components/TimelineSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
+import ResumeModal from '@/components/ResumeModal';
+import AtsModal from '@/components/AtsModal';
+import CrystalCursorAura from '@/components/CrystalCursorAura';
+import SectionReveals from '@/components/SectionReveals';
 
+/** Compose the crystal portfolio; query parameters are the source of overlay and filter state. */
 export default function Home() {
-  const [isResumeOpen, setIsResumeOpen] = useState(false);
-  const [isAtsOpen, setIsAtsOpen] = useState(false);
-  const [activeTechFilter, setActiveTechFilter] = useState<string | null>(null);
-
-  return (
-    <div className="crystal-canvas min-h-screen text-slate-900 relative selection:bg-purple-300 selection:text-purple-950">
-      {/* Interactive Crystal Cursor Aura & Ambient Refractions */}
-      <CrystalCursorAura />
-
-      {/* Dynamic Floating Crystal Navigation */}
-      <Navbar
-        onOpenResume={() => setIsResumeOpen(true)}
-        onOpenAts={() => setIsAtsOpen(true)}
-      />
-
-      <main className="relative z-10">
-        {/* Section 1: Hero Command Deck */}
-        <HeroSection onOpenResume={() => setIsResumeOpen(true)} />
-
-        {/* Section 2: Real-Time GitHub & Tech Matrix */}
-        <TechMatrixSection
-          activeTechFilter={activeTechFilter}
-          onSelectTechFilter={setActiveTechFilter}
-        />
-
-        {/* Section 3: Interactive Project Explorer & Multi-Tenant Simulator */}
-        <ProjectsSection
-          activeTechFilter={activeTechFilter}
-          onSelectTechFilter={setActiveTechFilter}
-        />
-
-        {/* Section 4: Interactive "Under-The-Hood" Code Console */}
-        <CodeConsoleSection />
-
-        {/* Section 5: Engineering Career Timeline */}
-        <TimelineSection />
-
-        {/* Section 6: Functional Contact Gateway & Lead Capture Hub */}
-        <ContactSection />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Section 7: Modals & Drawer Overlays */}
-      <ResumeModal
-        isOpen={isResumeOpen}
-        onClose={() => setIsResumeOpen(false)}
-        onOpenAts={() => {
-          setIsResumeOpen(false);
-          setIsAtsOpen(true);
-        }}
-      />
-
-      <AtsModal
-        isOpen={isAtsOpen}
-        onClose={() => setIsAtsOpen(false)}
-      />
-    </div>
-  );
+	const query = usePortfolioQuery();
+	const openResume = () => updatePortfolioQuery({ action: 'resume' });
+	const openAts = () => updatePortfolioQuery({ action: 'ats' });
+	const closeOverlay = () => updatePortfolioQuery({ action: null });
+	const selectSkill = (tech: string | null) => updatePortfolioQuery({ tech });
+	return (
+		<div className='crystal-canvas portfolio-page'>
+			<a className='skip-link glass-btn glass-dialog' href={route('content')}>Skip to content</a>
+			<CrystalCursorAura />
+			<SectionReveals />
+			<Navbar onOpenResume={openResume} onOpenAts={openAts} />
+			<main id='main-content' tabIndex={-1} className='portfolio-main'>
+				<HeroSection onOpenResume={openResume} />
+				<TechMatrixSection activeTechFilter={query.get('tech')} onSelectTechFilter={selectSkill} />
+				<ProcessSection />
+				<ProjectsSection activeTechFilter={query.get('tech')} onSelectTechFilter={selectSkill} />
+				<StatsSection />
+				<section className='portfolio-section deeper-work' aria-label='Engineering details'>
+					<details className='glass-surface glass-stationary'><summary>Behind the work <span>Architecture & code ↗</span></summary><CodeConsoleSection /></details>
+					<details className='glass-surface glass-stationary'><summary>The journey so far <span>Experience & milestones ↗</span></summary><TimelineSection /></details>
+				</section>
+				<ContactSection />
+			</main>
+			<Footer />
+			<ResumeModal isOpen={query.get('action') === 'resume'} onClose={closeOverlay} onOpenAts={openAts} />
+			<AtsModal isOpen={query.get('action') === 'ats'} onClose={closeOverlay} />
+		</div>
+	);
 }

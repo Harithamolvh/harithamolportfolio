@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import '@/app/globals.css';
+import '@/app/portfolio.css';
 
 export const metadata: Metadata = {
-  title: "Harithamol V H | Senior PHP / Laravel Full-Stack Engineer",
+  title: "Harithamol V H | PHP & Laravel Full-Stack Engineer",
   description:
     "Portfolio of Harithamol V H — 5+ Years experience architecting Multi-Tenant SaaS, Resilient Payment Gateways, Enterprise Portals, Docker & CI/CD with AI-accelerated workflows.",
   keywords: [
@@ -18,15 +19,6 @@ export const metadata: Metadata = {
     "Docker CI/CD",
   ],
   authors: [{ name: "Harithamol V H", url: "https://harithamol.com" }],
-  openGraph: {
-    title: "Harithamol V H | Senior PHP / Laravel Full-Stack Engineer",
-    description:
-      "5+ Years Experience building scalable web applications, multi-tenant SaaS platforms, e-commerce solutions, and enterprise software.",
-    url: "https://harithamol.com",
-    siteName: "Harithamol V H Portfolio",
-    locale: "en_US",
-    type: "website",
-  },
 };
 
 export default function RootLayout({
@@ -40,11 +32,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-purple-300 selection:text-purple-950 overflow-x-hidden">
+      <body className="min-h-screen text-[var(--ink-soft)] font-sans selection:bg-[#D9D4FF] selection:text-[#2B2468] overflow-x-hidden">
         {children}
       </body>
     </html>
