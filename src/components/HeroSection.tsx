@@ -25,7 +25,7 @@ export default function HeroSection({ onOpenResume }: HeroSectionProps) {
 				</div>
 				<div className='hero-subject'>
 					<div className='portrait-sphere' aria-hidden='true' />
-					<Image src={route('avatar')} width={900} height={1202} alt='Illustrative 3D developer avatar in a pearl blazer' className='hero-avatar' priority />
+					<Image src={route('avatar')} width={1086} height={1448} alt='Stylized portrait of Harithamol in a pearl blazer' className='hero-avatar' preload />
 					<div className='portrait-rim' aria-hidden='true' />
 					<span className='subject-bubble subject-bubble-one' aria-hidden='true' />
 					<span className='subject-bubble subject-bubble-two' aria-hidden='true' />

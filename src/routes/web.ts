@@ -8,6 +8,6 @@ export const webRoutes = {
 	process: '/#process',
 	content: '/#main-content',
 	resume: '/resume',
-	avatar: '/hero-avatar.webp',
+	avatar: '/hero-avatar-harithamol.webp',
 } as const;
 

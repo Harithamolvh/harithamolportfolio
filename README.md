@@ -54,15 +54,11 @@ Reduced-motion preferences stop ambient animation, floating bubbles, parallax, s
 
 Section destinations are named routes using ordinary fragment anchors, not hash-based application routing.
 
-## Avatar asset and generation prompt
+## Hero portrait
 
-The built-in image-generation tool created the fictional illustrative avatar. It is not a likeness of Harithamol. The transparent, optimized asset is saved at `public/hero-avatar.webp` (approximately 145 KB). The original generated PNG is retained in the tool's generated-images directory.
+The hero uses the approved stylized likeness of Harithamol, generated with the built-in image tool using `real-frames/Confident Smile in Satin Blazer.png` as the facial reference and the previous avatar as the style reference. The existing outfit, pose, lighting, transparent background, layout, and animation are retained.
 
-Prompt used:
-
-> Create a premium stylized 3D character asset for a web developer portfolio. A fictional adult woman developer, waist-up, centered, three-quarter pose turned slightly right looking toward viewer, warm medium-brown skin, dark shoulder-length gently wavy hair, round understated thin crystal-clear glasses, softly confident smile, wearing a sculptural pearl-white blazer over a lavender top, arms relaxed loosely folded at waist. Sophisticated editorial 3D sculpture rendering, realistic materials but clearly stylized avatar rather than photograph of a real person. Lavender and cool-blue studio rim lighting, very soft pink highlights, luminous refined finish. Entire head and shoulders fully in frame with breathing room above, lower torso at bottom, portrait 3:4 composition. Genuine transparent alpha background, isolated cutout. No circle, no orb, no backdrop, no text, no logos, no props. Asset will be placed by CSS inside a transparent crystal sphere.
-
-Replace this asset with an authorized personal portrait when available; the sphere and all lighting effects remain independent CSS layers.
+The approved source is `public/hero-avatar-harithamol.png`. The website loads `public/hero-avatar-harithamol.webp`, optimized at quality 90 with full alpha quality, through the named `avatar` route. Both images are 1086 ? 1448. The former `public/hero-avatar.webp` remains available as a backup.
 
 ## Verification and existing backend limitation
 
