@@ -13,7 +13,7 @@ export default function HeroSection({ onOpenResume }: HeroSectionProps) {
 	return (
 		<section id='home' className='portfolio-hero glass-surface glass-stationary'>
 			<div className='hero-topline'><span>HARITHAMOL V H / SELECTED WORK</span><span>DEVELOPER & CREATIVE THINKER <Sparkles size={12} /></span></div>
-			<div className='hero-watermark' aria-hidden='true'>PORTFOLIO</div>
+			<div className='hero-watermark' aria-hidden='true'>FULL STACK DEV</div>
 			<div className='hero-layout'>
 				<div className='hero-intro' id='about'>
 					<p className='hero-reveal hero-eyebrow'>Hi, I’m</p>

@@ -58,7 +58,7 @@ export interface CodeSnippet {
 export const PORTFOLIO_DATA = {
   hero: {
     name: "Harithamol V H",
-    role: "PHP / Laravel Full-Stack Engineer",
+		role: 'Full stack Engineer',
     experienceYears: "5+",
     location: "Alappuzha / Kochi, Kerala, India",
     email: "vhharithamol@gmail.com",

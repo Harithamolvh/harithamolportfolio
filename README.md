@@ -33,6 +33,8 @@ The project gallery retains the interactive tenant, SMS, payment concurrency, an
 
 ## Visual system
 
+Portfolio prose uses `--portfolio-body-size`: 16px on mobile and 14px from 1024px, with medium weight and generous line spacing. Navigation and buttons use semibold 14–16px text, labels use 12–14px, and headings use 600–700 weight. Typography sizes use rem units where practical; cards and section headings wrap to accommodate larger text.
+
 The supplied pearl-white, lilac, periwinkle, and violet CSS variables remain the palette source. The page keeps its luminous appearance across operating-system themes. Space Grotesk headings pair with Inter body text, with font fallbacks when Google Fonts is unavailable.
 
 Use `glass-surface` for cards, `glass-inset` for nested controls, `glass-btn` for buttons, `glass-chip` for small labels, and `glass-input` for form fields. Selected states use `glass-selected`; overlays use `glass-dialog` and `glass-stationary`. Reflections sit behind content and cannot intercept pointer input.
