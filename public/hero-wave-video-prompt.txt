@@ -1,0 +1,7 @@
+Use public/hero-avatar-harithamol.png as the identity and first/last frame reference.
+
+Create a continuous 3-second portrait animation. Start in the exact original folded-arm pose. The woman gently shifts her shoulders and upper torso, naturally lifts her right arm, gives one small relaxed wrist wave with an open palm, subtly tilts her head, and smiles slightly more warmly. Her eyes remain directed toward the viewer; include a natural blink. Lower the arm smoothly and settle back into the exact original pose. Coordinate the head, shoulder, elbow, wrist, and body movement with natural easing and follow-through. Keep the movement restrained and professional.
+
+Preserve her identity, facial structure, hair, earrings, pearl blazer, lavender top, lighting, proportions, and stylized rendering. Fixed camera; no zoom, pan, crop change, body scaling, cuts, scene changes, or added objects. Keep the entire raised hand in frame, with anatomically correct fingers. No talking or audio. No frozen torso, robotic motion, or repeated looping.
+
+Delivery: matching 3:4 portrait crop, ideally 1086x1448 or a proportional web resolution, at 24-30 fps. First and last frames must align with the original still. Generate on a removable uniform background if alpha output is unavailable, then remove that background and export a genuine alpha-channel WebM. Do not ship an opaque rectangle over the portfolio's glass sphere. Inspect background edges and playback in target browsers before enabling.

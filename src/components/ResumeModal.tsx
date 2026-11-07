@@ -42,18 +42,18 @@ export default function ResumeModal({
   };
 
   return (
-    <div ref={dialogRef} role='dialog' aria-modal='true' aria-label='Resume reader' tabIndex={-1} className="fixed inset-0 z-50 overflow-y-auto glass-overlay backdrop-blur-md flex justify-end animate-in fade-in duration-300">
-      <div className="w-full max-w-4xl glass-inset glass-dialog min-h-screen flex flex-col justify-between border-l border-[var(--glass-border)] animate-in slide-in-from-right duration-300">
-        {/* Slide-over Control Bar (Hidden during print) */}
+    <div ref={dialogRef} role='dialog' aria-modal='true' aria-label='Resume reader' tabIndex={-1} className='resume-overlay fixed inset-0 z-50 overflow-y-auto glass-overlay backdrop-blur-md flex items-center justify-center p-3 sm:p-6'>
+      <div className='resume-dialog w-full min-w-0 max-w-4xl glass-inset glass-dialog flex flex-col border border-[var(--glass-border)]'>
+        {/* Centered reader controls remain accessible while the document scrolls. */}
         <div className="sticky top-0 z-20 glass-stationary glass-dialog crystal-card glass-inset backdrop-blur-2xl px-4 sm:px-6 py-4 border-b border-white/95 flex flex-wrap gap-3 items-center justify-between print:hidden">
-          <div className="flex items-center gap-2">
+          <div className='flex flex-wrap items-center gap-2'>
             <span className="w-2.5 h-2.5 rounded-full glass-inset animate-pulse" />
             <span className="font-extrabold text-[var(--ink)] text-sm">
               Resume Reader — Harithamol V H
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className='flex flex-wrap items-center gap-2'>
             <button
               onClick={onOpenAts}
               className="glass-btn text-xs font-bold px-3 py-1.5 rounded-xl border border-[var(--glass-border)] text-[var(--ink)] hover:border-[var(--bg-4)] transition-colors"
@@ -71,7 +71,8 @@ export default function ResumeModal({
 
             <button
               onClick={onClose}
-              className="glass-btn w-8 h-8 rounded-full glass-inset hover:border-[var(--bg-4)] flex items-center justify-center text-[var(--ink-soft)] transition-colors ml-2"
+              className='glass-btn round-button shrink-0 glass-inset hover:border-[var(--bg-4)] text-[var(--ink-soft)]'
+              aria-label='Close resume reader'
               title="Close viewer"
             >
               <X className="w-4 h-4" />
@@ -80,7 +81,7 @@ export default function ResumeModal({
         </div>
 
         {/* High-Fidelity Printable Resume Document */}
-        <div className="p-8 sm:p-12 text-[var(--ink)] font-sans print:p-0">
+        <div className='p-4 sm:p-12 text-[var(--ink)] font-sans print:p-0'>
           {/* Header */}
           <div className="text-center pb-6 border-b-2 border-[var(--glass-border)]">
             <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-[var(--ink)] uppercase">
@@ -322,7 +323,7 @@ export default function ResumeModal({
           <span className="text-xs text-[var(--ink-soft)] font-medium">
             5+ Years Commercial Experience • Harithamol V H
           </span>
-          <div className="flex items-center gap-2">
+          <div className='flex flex-wrap items-center gap-2'>
             <button
               onClick={handlePrint}
               className="glass-btn inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-[var(--ink)] glass-inset hover:border-[var(--bg-4)]"

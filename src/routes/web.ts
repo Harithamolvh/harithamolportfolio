@@ -9,5 +9,6 @@ export const webRoutes = {
 	content: '/#main-content',
 	resume: '/resume',
 	avatar: '/hero-avatar-harithamol.webp',
+	avatarWaveVideo: '/hero-wave-clean.webm',
 } as const;
 
