@@ -1,15 +1,19 @@
-﻿'use client';
+'use client';
 
+import { useEffect, useRef } from 'react';
 import { ArrowUpRight, Award, Briefcase, GraduationCap, MapPin } from 'lucide-react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
 
 /** Present work in reverse chronological order, followed by learning milestones. */
 export default function TimelineSection() {
+	const sectionRef = useRef<HTMLElement>(null);
+	// Reveal attributes must only be added after this lazy boundary has hydrated.
+	useEffect(() => { sectionRef.current?.removeAttribute('data-reveal-pending'); }, []);
 	const experience = PORTFOLIO_DATA.timeline.filter((item) => item.type === 'commercial');
 	const milestones = PORTFOLIO_DATA.timeline.filter((item) => item.type !== 'commercial');
 
 	return (
-		<section id='timeline' className='portfolio-section experience-section' aria-labelledby='experience-title'>
+		<section ref={sectionRef} data-reveal-pending id='timeline' className='portfolio-section experience-section' aria-labelledby='experience-title'>
 			<div className='section-heading' data-section-heading>
 				<div><span className='section-kicker'>THE JOURNEY SO FAR</span><h2 id='experience-title'>Experience &amp; milestones.</h2></div>
 				<p>From first launches to growing platforms.<br />The teams, projects, and learning along the way.</p>

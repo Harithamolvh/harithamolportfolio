@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+	<title>Harithamol V H</title>
+	<defs>
+		<linearGradient id="lavender" x2="1" y2="1">
+			<stop stop-color="#f2edff" />
+			<stop offset="1" stop-color="#bfb3f5" />
+		</linearGradient>
+	</defs>
+	<rect x="1" y="1" width="62" height="62" rx="17" fill="url(#lavender)" stroke="#f8f5ff" stroke-width="2" />
+	<path fill="#2b2468" d="M11 19h6v11h10V19h6v28h-6V36H17v11h-6zM35 19h6l6 20 6-20h6l-9 28h-6z" />
+</svg>

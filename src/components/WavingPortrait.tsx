@@ -16,15 +16,28 @@ export default function WavingPortrait() {
 	const mounted = useRef(false);
 	const watchdog = useRef<ReturnType<typeof setTimeout> | null>(null);
 	const requestId = useRef(0);
+	const frameCallback = useRef<number | null>(null);
+	const animationFrame = useRef<number | null>(null);
+	const retryAfter = useRef(0);
+
+	/** Cancel frame work so an old playback cannot reveal a stopped or restarted clip. */
+	const cancelFrame = useCallback(() => {
+		if (frameCallback.current !== null) videoRef.current?.cancelVideoFrameCallback(frameCallback.current);
+		if (animationFrame.current !== null) cancelAnimationFrame(animationFrame.current);
+		frameCallback.current = null;
+		animationFrame.current = null;
+	}, []);
 
 	/** Cancel pending play requests and restore the still image on completion or failure. */
 	const stopWave = useCallback(() => {
+		cancelFrame();
+		if (active.current) retryAfter.current = performance.now() + 280;
 		requestId.current += 1;
 		active.current = false;
 		if (watchdog.current) clearTimeout(watchdog.current);
 		videoRef.current?.pause();
 		if (mounted.current) setPlaying(false);
-	}, []);
+	}, [cancelFrame]);
 
 	useEffect(() => {
 		mounted.current = true;
@@ -46,7 +59,7 @@ export default function WavingPortrait() {
 	/** Ignore duplicate focus/tap triggers and recover from unsupported or rejected playback. */
 	const playWave = async () => {
 		const video = videoRef.current;
-		if (!video || active.current || document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		if (!video || active.current || performance.now() < retryAfter.current || document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		active.current = true;
 		const currentRequest = ++requestId.current;
 		// Bound loading/stalling time so a failed download cannot lock the interaction.
@@ -59,13 +72,29 @@ export default function WavingPortrait() {
 		}
 	};
 
-	/** Reveal only decoded, playing video so loading never produces a blank portrait. */
+	/** Wait for an actual presented frame, rather than the earlier playing event. */
 	const revealVideo = () => {
-		if (!active.current || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-			stopWave();
-			return;
+		const video = videoRef.current;
+		if (!video || !active.current) return;
+		cancelFrame();
+		const currentRequest = requestId.current;
+		/** Keep the still visible through loading and seeking, and reject stale callbacks. */
+		const revealFrame = () => {
+			frameCallback.current = null;
+			animationFrame.current = null;
+			if (!mounted.current || !active.current || currentRequest !== requestId.current) return;
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { stopWave(); return; }
+			if (video.seeking || video.readyState < 2) return;
+			if (checkTransparency()) setPlaying(true);
+		};
+		if (typeof video.requestVideoFrameCallback === 'function') {
+			frameCallback.current = video.requestVideoFrameCallback(revealFrame);
+		} else {
+			// Older browsers get two rendering opportunities before the opacity change.
+			animationFrame.current = requestAnimationFrame(() => {
+				animationFrame.current = requestAnimationFrame(revealFrame);
+			});
 		}
-		setPlaying(true);
 	};
 
 	/** Retain the original on decode failures, including browsers without transparent WebM. */
@@ -77,16 +106,18 @@ export default function WavingPortrait() {
 	/** The exported top-left pixel is transparent; an opaque decode would show a black rectangle. */
 	const checkTransparency = () => {
 		const video = videoRef.current;
-		if (!video) return;
+		if (!video) return false;
 		try {
 			const canvas = document.createElement('canvas');
 			canvas.width = canvas.height = 1;
 			const context = canvas.getContext('2d', { willReadFrequently: true });
-			if (!context) { restoreStillPortrait(); return; }
+			if (!context) { restoreStillPortrait(); return false; }
 			context.drawImage(video, 0, 0, 1, 1, 0, 0, 1, 1);
-			if (context.getImageData(0, 0, 1, 1).data[3] > 0) restoreStillPortrait();
+			if (context.getImageData(0, 0, 1, 1).data[3] > 0) { restoreStillPortrait(); return false; }
+			return true;
 		} catch {
 			restoreStillPortrait();
+			return false;
 		}
 	};
 
@@ -138,7 +169,6 @@ export default function WavingPortrait() {
 				aria-hidden='true'
 				tabIndex={-1}
 				onPlaying={revealVideo}
-				onLoadedData={checkTransparency}
 				onEnded={stopWave}
 				onError={restoreStillPortrait}
 				onPause={stopWave}

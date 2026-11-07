@@ -28,7 +28,7 @@ export default function SectionReveals() {
 
 		/** Stagger within the current row, so mobile columns never accumulate long delays. */
 		const register = (element: HTMLElement) => {
-			if (tracked.has(element)) return;
+			if (tracked.has(element) || element.closest('[data-reveal-pending]')) return;
 			tracked.add(element);
 			const siblings = Array.from(element.parentElement?.children ?? []).filter((sibling) => sibling.matches('.skill-tile,.process-step,.project-card')) as HTMLElement[];
 			const row = siblings.filter((sibling) => Math.abs(sibling.offsetTop - element.offsetTop) < 8);
@@ -49,13 +49,14 @@ export default function SectionReveals() {
 		scan(document);
 		const changes = new MutationObserver((records) => {
 			for (const record of records) {
+				if (record.type === 'attributes' && record.target instanceof HTMLElement) scan(record.target);
 				for (const node of record.addedNodes) if (node instanceof HTMLElement) scan(node);
 			}
 			for (const element of tracked) {
 				if (!element.isConnected) { observer.unobserve(element); tracked.delete(element); }
 			}
 		});
-		changes.observe(document.querySelector('.portfolio-page') ?? document.body, { childList: true, subtree: true });
+		changes.observe(document.querySelector('.portfolio-page') ?? document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-reveal-pending'] });
 		/** Release animation transforms afterward so card hover interactions work normally. */
 		const onAnimationEnd = (event: AnimationEvent) => {
 			if (event.animationName === 'section-reveal' && event.target instanceof HTMLElement) finish(event.target);

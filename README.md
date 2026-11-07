@@ -85,3 +85,7 @@ The production build and TypeScript checks passed. Headless Chrome checks covere
 The contact form was checked using a mocked response; no message was sent. Its existing backend validates and logs submissions but does not currently deliver email. Configure a delivery service before relying on this endpoint for inbound inquiries.
 
 The contact section uses a Let?s talk button to lazy-load `ContactModal.tsx` through `?action=contact`. The centered dialog supports Escape, trapped keyboard focus, focus restoration, browser history, and internal scrolling on mobile. The contact information card remains above the footer with a compact gap.
+
+Portrait playback waits for a presented video frame before a 240ms crossfade, suppresses the native tap highlight, and blocks restarts during the return fade. Touch-emulated Chrome checks cover repeated taps, completion, replay, Escape, and reduced motion; physical-device smoothness still needs confirmation.
+
+The shared BrandLoader uses an HV glass monogram with a CSS orbit animation. Next.js route loading and lazy modal loading use it without an artificial delay; reduced-motion preferences keep the ring static.
