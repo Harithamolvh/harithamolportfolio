@@ -66,6 +66,7 @@ export const PORTFOLIO_DATA = {
     whatsappClean: "918891336232",
     githubUrl: "https://github.com/vhharithamol",
     linkedinUrl: "https://www.linkedin.com/in/harithamol-v-h",
+		instagramUrl: 'https://www.instagram.com/iam_haritha_thumbi/',
     portfolioUrl: "https://harithamol.com",
     availabilityText: "Available for Senior / High-Impact Roles",
     summary:

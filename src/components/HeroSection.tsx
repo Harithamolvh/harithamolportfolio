@@ -12,11 +12,11 @@ interface HeroSectionProps { onOpenResume: () => void; }
 export default function HeroSection({ onOpenResume }: HeroSectionProps) {
 	return (
 		<section id='home' className='portfolio-hero glass-surface glass-stationary'>
-			<div className='hero-topline'><span>HARITHAMOL V H / SELECTED WORK</span><span>DEVELOPER & CREATIVE THINKER <Sparkles size={12} /></span></div>
+			<div className='hero-topline'><span>TURNING IDEAS INTO EXPERIENCES</span><span>DEVELOPER & CREATIVE THINKER <Sparkles size={12} /></span></div>
 			<div className='hero-watermark' aria-hidden='true'>FULL STACK DEV</div>
 			<div className='hero-layout'>
 				<div className='hero-intro' id='about'>
-					<h1 className='hero-reveal hero-name'>Hi, I&apos;am <span>Haritha</span></h1>
+					<h1 className='hero-reveal hero-name'>Hi, I&apos;m <span>Haritha.</span></h1>
 					<p className='hero-reveal hero-role'>{PORTFOLIO_DATA.hero.role}</p>
 					<p className='hero-reveal hero-description'>Thoughtful experiences.<br />Powerful foundations.<br />I build web applications that look simple and do extraordinary things.</p>
 					<button type='button' className='hero-reveal glass-btn hero-resume' onClick={onOpenResume}>

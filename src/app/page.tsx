@@ -1,5 +1,7 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+import { LoadingPanel, LoadingDocument } from '@/components/DeferredContent';
 import { route } from '@qubitcodes/qcrouter';
 import '@/lib/navigation';
 import { usePortfolioQuery, updatePortfolioQuery } from '@/lib/usePortfolioQuery';
@@ -9,19 +11,21 @@ import TechMatrixSection from '@/components/TechMatrixSection';
 import ProjectsSection from '@/components/ProjectsSection';
 import ProcessSection from '@/components/ProcessSection';
 import StatsSection from '@/components/StatsSection';
-import CodeConsoleSection from '@/components/CodeConsoleSection';
-import TimelineSection from '@/components/TimelineSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
-import ResumeModal from '@/components/ResumeModal';
-import AtsModal from '@/components/AtsModal';
 import CrystalCursorAura from '@/components/CrystalCursorAura';
 import SectionReveals from '@/components/SectionReveals';
+
+const TimelineSection = dynamic(() => import('@/components/TimelineSection'), { loading: LoadingPanel });
+const ResumeModal = dynamic(() => import('@/components/ResumeModal'), { loading: LoadingDocument });
+const ContactModal = dynamic(() => import('@/components/ContactModal'), { loading: LoadingDocument });
+const AtsModal = dynamic(() => import('@/components/AtsModal'), { loading: LoadingDocument });
 
 /** Compose the crystal portfolio; query parameters are the source of overlay and filter state. */
 export default function Home() {
 	const query = usePortfolioQuery();
 	const openResume = () => updatePortfolioQuery({ action: 'resume' });
+	const openContact = () => updatePortfolioQuery({ action: 'contact' });
 	const openAts = () => updatePortfolioQuery({ action: 'ats' });
 	const closeOverlay = () => updatePortfolioQuery({ action: null });
 	const selectSkill = (tech: string | null) => updatePortfolioQuery({ tech });
@@ -37,15 +41,13 @@ export default function Home() {
 				<ProcessSection />
 				<ProjectsSection activeTechFilter={query.get('tech')} onSelectTechFilter={selectSkill} />
 				<StatsSection />
-				<section className='portfolio-section deeper-work' aria-label='Engineering details'>
-					<details className='glass-surface glass-stationary'><summary>Behind the work <span>Architecture & code ↗</span></summary><CodeConsoleSection /></details>
-					<details className='glass-surface glass-stationary'><summary>The journey so far <span>Experience & milestones ↗</span></summary><TimelineSection /></details>
-				</section>
-				<ContactSection />
+				<TimelineSection />
+				<ContactSection onOpenContact={openContact} />
 			</main>
 			<Footer />
-			<ResumeModal isOpen={query.get('action') === 'resume'} onClose={closeOverlay} onOpenAts={openAts} />
-			<AtsModal isOpen={query.get('action') === 'ats'} onClose={closeOverlay} />
+			{query.get('action') === 'resume' && <ResumeModal isOpen onClose={closeOverlay} onOpenAts={openAts} />}
+			{query.get('action') === 'contact' && <ContactModal onClose={closeOverlay} />}
+			{query.get('action') === 'ats' && <AtsModal isOpen onClose={closeOverlay} />}
 		</div>
 	);
 }

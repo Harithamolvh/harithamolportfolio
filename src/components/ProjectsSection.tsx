@@ -1,14 +1,16 @@
 'use client';
 
+import dynamic from 'next/dynamic';
+import { LoadingPanel } from '@/components/DeferredContent';
 import { ArrowDown, ArrowUpRight, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
 import { usePortfolioQuery, updatePortfolioQuery } from '@/lib/usePortfolioQuery';
 import ProjectPreview from '@/components/ProjectPreview';
-import TenantSimulator from '@/components/TenantSimulator';
-import SmsSimulator from '@/components/SmsSimulator';
-import PipelineTracker from '@/components/PipelineTracker';
-import ConcurrencySchematic from '@/components/ConcurrencySchematic';
+const TenantSimulator = dynamic(() => import('@/components/TenantSimulator'), { loading: LoadingPanel });
+const SmsSimulator = dynamic(() => import('@/components/SmsSimulator'), { loading: LoadingPanel });
+const PipelineTracker = dynamic(() => import('@/components/PipelineTracker'), { loading: LoadingPanel });
+const ConcurrencySchematic = dynamic(() => import('@/components/ConcurrencySchematic'), { loading: LoadingPanel });
 
 interface ProjectsSectionProps { activeTechFilter: string | null; onSelectTechFilter: (tech: string | null) => void; }
 

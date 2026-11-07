@@ -29,9 +29,15 @@ Open http://localhost:3000. Use `npm run build` for the production build and Typ
 - `src/lib/useDialogAccessibility.ts`: focus trapping, Escape handling, scroll locking, and focus restoration.
 - `src/app/api/contact/route.ts`: existing contact endpoint, unchanged by the visual redesign.
 
-The project gallery retains the interactive tenant, SMS, payment concurrency, and service pipeline demonstrations. Architecture examples and the complete career timeline remain in expandable sections. Resume and plain-text resume views remain available.
+The project gallery retains the interactive tenant, SMS, payment concurrency, and service pipeline demonstrations. The career timeline is a visible section with dated experience cards and separate education and certification milestones. The Behind the work section has been removed. Resume and plain-text resume views remain available.
 
 ## Visual system
+
+On entry, the hero introduction moves from the left, the freelance card from the right, and the portrait from above. Below the fold, section headings, skill tiles, process steps, project cards, statistics, contact content, and footer reveal once near the viewport. Tile/card delays follow their rendered row. Keyboard focus immediately reveals a waiting target; reduced motion shows all content immediately, and text remains visible without JavaScript.
+
+Optional code is loaded on demand: project simulators only mount when their project is opened, the career timeline uses a separate component bundle, and resume/ATS dialogs load when requested. Loading panels reserve space and announce progress; document loading remains dismissible. The contact celebration library loads only after a successful submission. Project previews are lightweight HTML illustrations, not image downloads; the hero portrait remains preloaded and its wave video loads on interaction.
+
+Hero text enters once in sequence: the greeting fades upward, the role fades in after 450ms, and the description reveals gently after 800ms. The resume button follows at 1100ms. Reduced-motion mode shows all text immediately.
 
 The freelance contact card has a slow pearl/lilac shimmer masked to its border. Reduced-motion preferences keep the highlight static.
 
@@ -77,3 +83,5 @@ The approved source is `public/hero-avatar-harithamol.png`. The website loads `p
 The production build and TypeScript checks passed. Headless Chrome checks covered widths of 320, 390, 768, 1024, and 1440 pixels, horizontal overflow, mobile navigation, project filtering, browser-history restoration, resume dialog focus and Escape handling, ambient/parallax motion, and reduced-motion behavior. No browser runtime errors were observed.
 
 The contact form was checked using a mocked response; no message was sent. Its existing backend validates and logs submissions but does not currently deliver email. Configure a delivery service before relying on this endpoint for inbound inquiries.
+
+The contact section uses a Let?s talk button to lazy-load `ContactModal.tsx` through `?action=contact`. The centered dialog supports Escape, trapped keyboard focus, focus restoration, browser history, and internal scrolling on mobile. The contact information card remains above the footer with a compact gap.

@@ -196,9 +196,9 @@
 	.glass-orbit-two { right: -6%; }
 }
 @media (prefers-reduced-motion: no-preference) {
-	[data-reveal='waiting'] { opacity: 0; transform: translateY(20px); }
-	[data-reveal='visible'] { animation: glass-reveal 400ms var(--glass-ease) both; }
-	@keyframes glass-reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+	[data-reveal='waiting'] { opacity: 0; transform: translateY(var(--reveal-distance,24px)); }
+	[data-reveal='visible'] { animation: section-reveal 650ms var(--glass-ease) var(--reveal-delay,0ms) backwards; }
+	@keyframes section-reveal { from { opacity: 0; transform: translateY(var(--reveal-distance,24px)); } to { opacity: 1; transform: none; } }
 }
 @media (prefers-reduced-motion: reduce) {
 	*,::before,::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
