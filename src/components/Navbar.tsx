@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { route } from '@qubitcodes/qcrouter';
+import BrandMark from '@/components/BrandMark';
 import { NAV_ITEMS } from '@/lib/navigation';
 
 interface NavbarProps {
@@ -29,7 +30,7 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
 	return (
 		<header className={'portfolio-nav-wrap' + (scrolled ? ' is-scrolled' : '')}>
 			<nav className='portfolio-nav glass-pill' aria-label='Main navigation'>
-				<a href={route('home')} className='nav-monogram' aria-label='Harithamol home'>hv<span>✧</span></a>
+				<a href={route('home')} className='nav-monogram' aria-label='Harithamol home'><BrandMark /></a>
 				<div className='nav-desktop'>
 					{NAV_ITEMS.map((item) => <a key={item.name} href={route(item.name)}>{item.label}</a>)}
 				</div>

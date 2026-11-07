@@ -8,6 +8,7 @@ export const webRoutes = {
 	process: '/#process',
 	content: '/#main-content',
 	resume: '/resume',
+	brandLogo: '/haritha-code-wordmark.png',
 	avatar: '/hero-avatar-harithamol.webp',
 	avatarWaveVideo: '/hero-wave-clean.webm',
 } as const;

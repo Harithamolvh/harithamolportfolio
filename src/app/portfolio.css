@@ -55,17 +55,19 @@
 /* Navigation floats above the page without participating in the backdrop's transforms. */
 .portfolio-nav-wrap { position: fixed; z-index: 40; top: 22px; left: 24px; right: 24px; display: flex; flex-direction: column; align-items: center; }
 .portfolio-nav { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: min(100%,960px); padding: 8px 12px 8px 20px; transition: width 350ms var(--glass-ease),padding 350ms var(--glass-ease),backdrop-filter 350ms var(--glass-ease); background: linear-gradient(125deg,rgba(244,241,255,.8),rgba(217,212,255,.55)); }
-.nav-monogram { font-family: 'Space Grotesk',sans-serif; font-size: 27px; font-weight: 700; letter-spacing: -.09em; display: flex; align-items: start; }
-.nav-monogram span { display: inline-block; font-size: 15px; margin-left: 5px; transform-origin: center; }
+.nav-monogram { display: flex; align-items: center; justify-content: center; min-width: 0; width: 120px; flex-shrink: 0; min-height: 44px; color: var(--ink); }
+.brand-mark { display: block; width: 100%; height: auto; overflow: visible; }
+.brand-mark-sparkle { transform-box: fill-box; transform-origin: center; }
+.brand-loader-core .brand-mark { width: 78px; height: auto; }
 /* Pulse the decorative star without shifting the logo or navigation. */
 @media (prefers-reduced-motion: no-preference) {
-	.nav-monogram span { animation: nav-star-pulse 2.6s ease-in-out infinite; }
+	.nav-monogram .brand-mark-sparkle { animation: nav-star-pulse 2.6s ease-in-out infinite; }
 }
 @keyframes nav-star-pulse {
 	0%,100% { transform: scale(.85); }
 	50% { transform: scale(1.25); }
 }
-.nav-actions { display: flex; align-items: center; gap: 8px; }.nav-desktop { display: none; }
+.nav-actions { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }.nav-desktop { display: none; }
 .portfolio-page .nav-toggle { width: 44px; padding: 0; }
 .is-scrolled .portfolio-nav { width: min(100%,920px); padding-block: 5px; backdrop-filter: blur(44px) saturate(175%); -webkit-backdrop-filter: blur(44px) saturate(175%); background-color: rgba(244,241,255,.35); }
 .mobile-navigation { display: flex; flex-direction: column; gap: 6px; width: min(100%,920px); margin-top: 12px; padding: 18px; }
@@ -351,3 +353,6 @@
 	.brand-loader-ring { animation: brand-loader-spin 1.8s linear infinite; }
 }
 @keyframes brand-loader-spin { to { transform: rotate(360deg); } }
+@media (max-width: 399px) {
+	.portfolio-nav .nav-hire { display: none; }
+}

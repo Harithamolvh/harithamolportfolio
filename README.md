@@ -89,3 +89,9 @@ The contact section uses a Let?s talk button to lazy-load `ContactModal.tsx` thr
 Portrait playback waits for a presented video frame before a 240ms crossfade, suppresses the native tap highlight, and blocks restarts during the return fade. Touch-emulated Chrome checks cover repeated taps, completion, replay, Escape, and reduced motion; physical-device smoothness still needs confirmation.
 
 The shared BrandLoader uses an HV glass monogram with a CSS orbit animation. Next.js route loading and lazy modal loading use it without an artificial delay; reduced-motion preferences keep the ring static.
+
+BrandMark.tsx contains the outlined Haritha serif wordmark and lavender sparkle used in navigation and the loader. Narrow mobile headers keep the name readable by showing the menu without the separate Hire me shortcut; Contact remains available in the menu. The standalone reusable artwork is public/haritha-logo.svg. The compact hv SVG, ICO, and Apple touch icons remain in src/app for small-size readability; the header sparkle respects reduced-motion settings.
+
+The header and loader now display the approved transparent orbit logo from `public/harithamol-orbit-logo.png`, via the named `brandLogo` route. Earlier SVG artwork is retained as an alternate.
+
+Search and social metadata identify Harithamol V H as a Full Stack Developer, without PHP/Laravel branding. The root layout includes description, keywords, canonical URL, robots, Open Graph and Twitter metadata. opengraph-image.tsx generates the lavender share card; the resume layout declares its own canonical URL.
